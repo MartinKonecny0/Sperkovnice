@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Interactable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1228947575
+    locked: 0
+  - name: RoomBack
+    uniqueID: 1620296713
+    locked: 0
+  - name: RoomCenter
+    uniqueID: 3061694465
+    locked: 0
+  - name: RoomFront
+    uniqueID: 3318424061
+    locked: 0
+  - name: RoomHider
+    uniqueID: 353476923
+    locked: 0
+  - name: Frame
+    uniqueID: 1803056475
+    locked: 0
+  m_RenderingLayers:
+  - Default
