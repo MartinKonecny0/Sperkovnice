@@ -47,6 +47,9 @@ TagManager:
   - name: RoomBack
     uniqueID: 1620296713
     locked: 0
+  - name: Items
+    uniqueID: 2463329683
+    locked: 0
   - name: RoomCenter
     uniqueID: 3061694465
     locked: 0
@@ -58,6 +61,12 @@ TagManager:
     locked: 0
   - name: Frame
     uniqueID: 1803056475
+    locked: 0
+  - name: ItemBar
+    uniqueID: 2045679491
+    locked: 0
+  - name: BarIcons
+    uniqueID: 1486840571
     locked: 0
   m_RenderingLayers:
   - Default
