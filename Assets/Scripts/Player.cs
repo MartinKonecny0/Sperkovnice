@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     public float interactionHeight = 3f;
     private float interactTimer = 0f;
     public float interactCooldown = 0.5f; //time to enter interact state
-    private float dropTimer = 0f; 
+    private float dropTimer = 0f;
     public float dropCooldown = 1f; //duration for how long player have to hold space to drop item
     public List<GameObject> itemsList;
     private int selectedItemIndex;
@@ -38,8 +38,9 @@ public class Player : MonoBehaviour
 
     public SpriteRenderer inventoryIcon;
     public GameObject inventoryItem; //item picked up by player
+    public string inventoryItemName;
 
-    
+
     public SpriteRenderer characterSprite;
 
     public enum PlayerStates
@@ -244,12 +245,14 @@ public class Player : MonoBehaviour
         if (inventoryItem == null)
         {
             inventoryItem = item;
+            inventoryItemName = item.GetComponent<PickupItem>().itemName;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
         }
         else
         {
             DropItem();
             inventoryItem = item;
+            inventoryItemName = item.GetComponent<PickupItem>().itemName;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
         }
         // item is still present in the scene
@@ -272,6 +275,7 @@ public class Player : MonoBehaviour
             inventoryItem.transform.position = gameObject.transform.position;
             inventoryItem.transform.parent = transform.parent;
             inventoryItem = null;
+            inventoryItemName = "";
             inventoryIcon.sprite = null;
             return true;
         }

@@ -5,8 +5,8 @@ public abstract class InteractableObject : MonoBehaviour
     public enum InteractableType {
         character,
         movement,
-        item,
-        enviroment,
+        pickup,
+        task,
     }
     public Sprite icon;
     public InteractableType type;

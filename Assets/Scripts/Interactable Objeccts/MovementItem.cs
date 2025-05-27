@@ -8,6 +8,10 @@ public class MovementItem : InteractableObject
     public Transform teleportPosition;
     public int destinationRoomIndex; //TODO: could be calculated based on the teleportPosition
 
+    void Start()
+    {
+        type = InteractableType.movement;
+    }
     public override void Interact(GameObject character, Player playerScript)
     {
         TeleportCharacter(character);
