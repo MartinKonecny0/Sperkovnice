@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        player = this.gameObject;
+        SaveManager.player = this;
     }
 
     private void OnEnable()
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         {
             if (playerState == PlayerStates.interact)
             {
-                itemsList[selectedItemIndex].GetComponent<InteractableObject>().Interact(gameObject, this);
+                itemsList[selectedItemIndex].GetComponent<InteractableObject>().Interact(player, this);
                 //TODO: should stay in interact state
                 playerState = PlayerStates.move;
                 ClearListOfItems(itemsList);
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
 
         LayerMask layer = LayerMask.GetMask("Interactable");
         RaycastHit2D[] hits;
-        hits = Physics2D.RaycastAll(transform.position, transform.up, interactionHeight, layer);
+        hits = Physics2D.RaycastAll(player.transform.position, transform.up, interactionHeight, layer);
 
         horizontal = movement.ReadValue<float>();
         // player is in walking state
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * interactionHeight, Color.white);
+                Debug.DrawRay(player.transform.position, transform.TransformDirection(Vector3.up) * interactionHeight, Color.white);
             }
         }
         // player is staying still and choosing item to interact with
@@ -244,6 +244,7 @@ public class Player : MonoBehaviour
     {
         if (inventoryItem == null)
         {
+
             inventoryItem = item;
             inventoryItemName = item.GetComponent<PickupItem>().itemName;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
@@ -272,8 +273,8 @@ public class Player : MonoBehaviour
         if (inventoryItem != null)
         {
             inventoryItem.SetActive(true);
-            inventoryItem.transform.position = gameObject.transform.position;
-            inventoryItem.transform.parent = transform.parent;
+            inventoryItem.transform.position = player.transform.position;
+            inventoryItem.transform.parent = player.transform.parent;
             inventoryItem = null;
             inventoryItemName = "";
             inventoryIcon.sprite = null;

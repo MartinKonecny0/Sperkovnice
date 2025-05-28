@@ -1,8 +1,12 @@
+using System;
 using NUnit.Framework.Constraints;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using static Player;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using Cache = Unity.VisualScripting.Cache;
 
 public enum CharacterType
 {
@@ -30,16 +34,20 @@ public class CharacterItem : InteractableObject
     {
         CharacterType previousCharacterType = playerScript.currentCharacter;
         // temporary for changing look of characters
-        Color previousColor = playerScript.characterSprite.color;
-        playerScript.characterSprite.color = characterSprite.color;
-        characterSprite.color = previousColor;
 
-
+        //Player newPlayer = CopyComponent(playerScript, this.gameObject);
+        playerScript.player = this.gameObject;
+        playerScript.gameObject.transform.parent = this.gameObject.transform;
+        playerScript.gameObject.transform.position = this.gameObject.transform.position;
+        this.gameObject.GetComponent<Collider2D>().isTrigger = false;
         playerScript.currentCharacter = characterType;
-        roomManager.ChangeWorld(characterType);
-        characterType = previousCharacterType;
-    }
+        this.gameObject.layer = 0; // default layer
 
+
+        character.GetComponent<Collider2D>().isTrigger = true;
+        character.layer = 6; // interactable layer
+        roomManager.ChangeWorld(characterType);
+    }
 
     void Update()
     {
