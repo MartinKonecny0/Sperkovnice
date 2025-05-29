@@ -7,9 +7,7 @@ public class SceneData
     [System.Serializable]
     public struct playerSave
     {
-        public float[] position;
         public CharacterType character;
-        public string roomName;
         public string playerCurrentItem;
     }
     [System.Serializable]
@@ -37,11 +35,7 @@ public class SceneData
     public SceneData(Player player, PickupItem[] items, CharacterItem[] characters)
     {
         playerData = new playerSave();
-        playerData.position = new float[2];
-        playerData.position[0] = player.transform.position.x;
-        playerData.position[1] = player.transform.position.y;
         playerData.character = player.currentCharacter;
-        playerData.roomName = player.transform.parent.name;
         playerData.playerCurrentItem = player.inventoryItemName;
 
 

@@ -30,6 +30,9 @@ public class TaskObject : InteractableObject
         if (requiredItemsNames.Contains(playerItemName))
         {
             Debug.Log("Player is holding object for this task");
+            requiredItemsNames.Remove(playerScript.inventoryItemName);
+            playerScript.inventoryIcon.sprite = null;
+            Destroy(playerScript.inventoryItem);
         }
         else
         {

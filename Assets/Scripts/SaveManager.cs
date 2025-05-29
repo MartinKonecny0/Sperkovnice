@@ -10,13 +10,14 @@ using System;
 
 public static class SaveManager
 {
+    public static int saveSlot;
     public static Player player;
     public static PickupItem[] allItems;
     public static CharacterItem[] allCharacterItems;
 
     public static void Save()
     {
-        string path = Application.persistentDataPath + "/saveFile.json";
+        string path = Application.persistentDataPath + "/saveFile" + saveSlot + ".json";
         FileStream fileStream = new FileStream(path, FileMode.Create);
         SceneData sceneData = new SceneData(player, allItems, allCharacterItems);
 
@@ -30,7 +31,7 @@ public static class SaveManager
 
     public static SceneData Load()
     {
-        string path = Application.persistentDataPath + "/saveFile.json";
+        string path = Application.persistentDataPath + "/saveFile" + saveSlot + ".json";
 
         string fileContent;
 

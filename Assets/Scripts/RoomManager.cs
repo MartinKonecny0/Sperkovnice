@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static SceneData;
 using static UnityEditor.Progress;
 
@@ -10,7 +11,7 @@ public class RoomManager : MonoBehaviour
     //   |_3_|___|_4_|
     //   |_5_|_6_|_7_|
 
-    public GameObject player;
+    public Player player;
     public GameObject presentRoom;
     public GameObject[] positionsParent; //one gameObject position that has all rooms of it's position as childs
     public GameObject[] activeRooms = new GameObject[8];
@@ -135,6 +136,10 @@ public class RoomManager : MonoBehaviour
         room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = false;
     }
 
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
     public void Save()
     {
         SetupSave();
@@ -153,20 +158,9 @@ public class RoomManager : MonoBehaviour
         SceneData loadedSceneData = SaveManager.Load();
         ClearScene();
 
-        allItems = new PickupItem[loadedSceneData.allPickupItems.Length];
-        int i = 0;
-        foreach (pickupItemSave item in loadedSceneData.allPickupItems)
-        {
-            GameObject gameObjectToSpawn = GetItemPrefabByName(item.name);
-            GameObject spawnedObject = Instantiate(gameObjectToSpawn);
-            spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
-            spawnedObject.transform.position = new Vector2(item.position[0], item.position[1]);
-            allItems[i] = spawnedObject.GetComponent<PickupItem>();
-            i++;
-        }
-
+        // setting up player and characters
         allCharacterItems = new CharacterItem[loadedSceneData.allCharacters.Length];
-        i = 0;
+        int i = 0;
         foreach (characterSave character in loadedSceneData.allCharacters)
         {
             GameObject gameObjectToSpawn = GetCharacterPrefabByType(character.character);
@@ -177,10 +171,10 @@ public class RoomManager : MonoBehaviour
             if (spawnedObject.GetComponent<CharacterItem>().characterType == loadedSceneData.playerData.character)
             {
                 GameObject spawnedPlayer = Instantiate(playerPrefab, spawnedObject.transform);
-                spawnedPlayer.GetComponent<Player>().inventoryIcon = inventoryIcon;
-                spawnedPlayer.GetComponent<Player>().roomManager = this;
-                spawnedPlayer.GetComponent<Player>().ChangePlayerToCharacter(null, spawnedObject);
-
+                player = spawnedPlayer.GetComponent<Player>();
+                player.inventoryIcon = inventoryIcon;
+                player.roomManager = this;
+                player.ChangePlayerToCharacter(null, spawnedObject);
 
                 CloseAllHiders();
                 OpenHider(spawnedObject.transform.parent.gameObject);
@@ -188,6 +182,25 @@ public class RoomManager : MonoBehaviour
             allCharacterItems[i] = spawnedObject.GetComponent<CharacterItem>();
             i++;
         }
+
+        // setting up pickup items
+        allItems = new PickupItem[loadedSceneData.allPickupItems.Length];
+        i = 0;
+        foreach (pickupItemSave item in loadedSceneData.allPickupItems)
+        {
+            GameObject gameObjectToSpawn = GetItemPrefabByName(item.name);
+            GameObject spawnedObject = Instantiate(gameObjectToSpawn);
+            spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
+            spawnedObject.transform.position = new Vector2(item.position[0], item.position[1]);
+            allItems[i] = spawnedObject.GetComponent<PickupItem>();
+            if (spawnedObject.GetComponent<PickupItem>().itemName == loadedSceneData.playerData.playerCurrentItem)
+            {
+                player.PickUpItem(spawnedObject);
+            }
+            i++;
+        }
+
+
     }
 
     public void ClearScene()
