@@ -1,17 +1,12 @@
-using NUnit.Framework;
-using System;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEditor.Search;
-using System.Xml.Serialization;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
+using UnityEditor.EditorTools;
 
 public class Player : MonoBehaviour
 {
+    public RoomManager roomManager;
+
     public InputSystem_Actions playerInput;
     private InputAction movement;
     public float lastHorizontal = 0f;
@@ -40,9 +35,6 @@ public class Player : MonoBehaviour
     public GameObject inventoryItem; //item picked up by player
     public string inventoryItemName;
 
-
-    public SpriteRenderer characterSprite;
-
     public enum PlayerStates
     {
         move, //player is fully able to walk
@@ -58,6 +50,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         SaveManager.player = this;
+        roomManager = GameObject.Find("GameManager").GetComponent<RoomManager>();
     }
 
     private void OnEnable()
@@ -284,5 +277,24 @@ public class Player : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void ChangePlayerToCharacter(GameObject oldCharacter, GameObject character)
+    {
+        character.layer = 0; // default layer
+        character.GetComponent<Collider2D>().isTrigger = false;
+
+        gameObject.transform.parent = character.transform;
+        player = character.gameObject;
+        gameObject.transform.position = character.transform.position;
+        currentCharacter = character.GetComponent<CharacterItem>().characterType;
+        print(character.layer);
+
+        if (oldCharacter != null)
+        {
+            oldCharacter.GetComponent<Collider2D>().isTrigger = true;
+            oldCharacter.layer = 6; // interactable layer
+        }
+        roomManager.ChangeWorld(currentCharacter);
     }
 }

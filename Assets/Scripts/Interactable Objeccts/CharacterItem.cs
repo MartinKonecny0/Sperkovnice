@@ -1,12 +1,4 @@
-using System;
-using NUnit.Framework.Constraints;
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Playables;
-using static Player;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
-using Cache = Unity.VisualScripting.Cache;
 
 public enum CharacterType
 {
@@ -16,14 +8,11 @@ public enum CharacterType
 }
 public class CharacterItem : InteractableObject
 {
-    public RoomManager roomManager;
     public CharacterType characterType;
 
     public bool isWalkingToDefault = false;
     public Transform defaultPosition;
     public float walkSpeed = 2;
-    // temporary for changing look of characters
-    public SpriteRenderer characterSprite;
 
     void Start()
     {
@@ -32,21 +21,7 @@ public class CharacterItem : InteractableObject
 
     public override void Interact(GameObject character, Player playerScript)
     {
-        CharacterType previousCharacterType = playerScript.currentCharacter;
-        // temporary for changing look of characters
-
-        //Player newPlayer = CopyComponent(playerScript, this.gameObject);
-        playerScript.player = this.gameObject;
-        playerScript.gameObject.transform.parent = this.gameObject.transform;
-        playerScript.gameObject.transform.position = this.gameObject.transform.position;
-        this.gameObject.GetComponent<Collider2D>().isTrigger = false;
-        playerScript.currentCharacter = characterType;
-        this.gameObject.layer = 0; // default layer
-
-
-        character.GetComponent<Collider2D>().isTrigger = true;
-        character.layer = 6; // interactable layer
-        roomManager.ChangeWorld(characterType);
+        playerScript.ChangePlayerToCharacter(character, this.gameObject);
     }
 
     void Update()

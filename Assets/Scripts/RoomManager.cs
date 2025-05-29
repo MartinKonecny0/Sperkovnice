@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static SceneData;
+using static UnityEditor.Progress;
 
 public class RoomManager : MonoBehaviour
 {
@@ -17,26 +18,33 @@ public class RoomManager : MonoBehaviour
     public int numOfRooms = 8;
     public GameObject[,] allRooms;
 
-
+    public SpriteRenderer inventoryIcon;
+    public GameObject playerPrefab;
     public GameObject[] allItemsPrefabs;
     public PickupItem[] allItems;
     public GameObject[] allCharactersPrefabs;
     public CharacterItem[] allCharacterItems;
 
-    public int[,] worldsMap = 
-    { 
+    public int[,] worldsMap =
+    {
         // Hedwig's world
-        {0, 0, 0,
-         0,    0,
-         0, 0, 0,},
+        {
+            0, 0, 0,
+            0, 0,
+            0, 0, 0,
+        },
         // Engineer's  world
-        {1, 0, 1,
-         1,    1,
-         1, 0, 1,},
+        {
+            1, 0, 1,
+            1, 1,
+            1, 0, 1,
+        },
         // Shaman's  world
-        {2, 2, 1,
-         1,    1,
-         1, 0, 1,},
+        {
+            2, 2, 1,
+            1, 1,
+            1, 0, 1,
+        },
     };
 
 
@@ -50,8 +58,9 @@ public class RoomManager : MonoBehaviour
                 if (positionsParent[roomsCounter] != null)
                 {
                     if (positionsParent[roomsCounter].transform.childCount > worldsCounter)
-                    { 
-                        allRooms[roomsCounter, worldsCounter] = positionsParent[roomsCounter].transform.GetChild(worldsCounter).gameObject;
+                    {
+                        allRooms[roomsCounter, worldsCounter] = positionsParent[roomsCounter].transform
+                            .GetChild(worldsCounter).gameObject;
                     }
 
                 }
@@ -65,7 +74,7 @@ public class RoomManager : MonoBehaviour
         {
             for (int worldsCounter = 0; worldsCounter < numOfWorlds; worldsCounter++)
             {
-                    print(roomsCounter + " " + worldsCounter + " " + allRooms[roomsCounter, worldsCounter]);
+                print(roomsCounter + " " + worldsCounter + " " + allRooms[roomsCounter, worldsCounter]);
             }
         }
     }
@@ -88,45 +97,61 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
+
     public void DeactivateAllRooms()
     {
         for (int i = 0; i < numOfRooms; i++)
         {
             if (activeRooms[i] != null)
-            { 
+            {
                 activeRooms[i].SetActive(false);
             }
         }
     }
+
     /// <summary>
     /// changes hiders of two rooms while changing rooms
     /// </summary>
-    public void UpdateHiders(GameObject roomToHide, GameObject roomToShow)
+    public void SwapHiders(GameObject roomToHide, GameObject roomToShow)
     {
         //TODO: find better way how instead of gameObject.Find()
         roomToHide.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = true;
         roomToShow.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = false;
     }
 
+    public void CloseAllHiders()
+    {
+        foreach (GameObject room in activeRooms)
+        {
+            if (room != null)
+            {
+                room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
+    }
+
+    public void OpenHider(GameObject room)
+    {
+        room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = false;
+    }
 
     public void Save()
     {
         SetupSave();
         SaveManager.Save();
     }
-    
+
 
     public void SetupSave()
     {
         SaveManager.allItems = allItems;
         SaveManager.allCharacterItems = allCharacterItems;
     }
+
     public void Load()
     {
         SceneData loadedSceneData = SaveManager.Load();
         ClearScene();
-
-
 
         allItems = new PickupItem[loadedSceneData.allPickupItems.Length];
         int i = 0;
@@ -135,21 +160,49 @@ public class RoomManager : MonoBehaviour
             GameObject gameObjectToSpawn = GetItemPrefabByName(item.name);
             GameObject spawnedObject = Instantiate(gameObjectToSpawn);
             spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
-            spawnedObject.transform.position = new Vector2(item.position[0],  item.position[1]);
+            spawnedObject.transform.position = new Vector2(item.position[0], item.position[1]);
             allItems[i] = spawnedObject.GetComponent<PickupItem>();
             i++;
         }
 
+        allCharacterItems = new CharacterItem[loadedSceneData.allCharacters.Length];
+        i = 0;
+        foreach (characterSave character in loadedSceneData.allCharacters)
+        {
+            GameObject gameObjectToSpawn = GetCharacterPrefabByType(character.character);
+            GameObject spawnedObject = Instantiate(gameObjectToSpawn);
+            
+            spawnedObject.transform.parent = GetRoomByName(character.roomName).transform;
+            spawnedObject.transform.position = new Vector2(character.position[0], character.position[1]);
+            if (spawnedObject.GetComponent<CharacterItem>().characterType == loadedSceneData.playerData.character)
+            {
+                GameObject spawnedPlayer = Instantiate(playerPrefab, spawnedObject.transform);
+                spawnedPlayer.GetComponent<Player>().inventoryIcon = inventoryIcon;
+                spawnedPlayer.GetComponent<Player>().roomManager = this;
+                spawnedPlayer.GetComponent<Player>().ChangePlayerToCharacter(null, spawnedObject);
 
 
+                CloseAllHiders();
+                OpenHider(spawnedObject.transform.parent.gameObject);
+            }
+            allCharacterItems[i] = spawnedObject.GetComponent<CharacterItem>();
+            i++;
+        }
     }
+
     public void ClearScene()
     {
         foreach (var item in allItems)
         {
             Destroy(item.gameObject);
         }
+
+        foreach (var character in allCharacterItems)
+        {
+            Destroy(character.gameObject);
+        }
     }
+
     public GameObject GetItemPrefabByName(string name)
     {
         foreach (GameObject item in allItemsPrefabs)
@@ -160,7 +213,21 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Debug.LogError("Trying to spawn item with missing prefab. Name of item: " + name);
+        Debug.LogError("Trying to get item with missing prefab. Name of item: " + name);
+        return null;
+    }
+
+    public GameObject GetCharacterPrefabByType(CharacterType type)
+    {
+        foreach (GameObject character in allCharactersPrefabs)
+        {
+            if (character.GetComponent<CharacterItem>().characterType == type)
+            {
+                return character;
+            }
+        }
+
+        Debug.LogError("Trying to get character with missing prefab. Name of character: " + name);
         return null;
     }
 

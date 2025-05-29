@@ -25,6 +25,6 @@ public class MovementItem : InteractableObject
         character.transform.position = teleportPosition.position;
         character.transform.parent = roomEntering.transform;
         roomManager.presentRoom = roomEntering;
-        roomManager.UpdateHiders(roomLeaving, roomEntering);
+        roomManager.SwapHiders(roomLeaving, roomEntering);
     }
 }
