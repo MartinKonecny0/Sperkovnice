@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &68033588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -532,8 +532,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -36.125}
-  m_SizeDelta: {x: 91.334, y: 30}
+  m_AnchoredPosition: {x: 50, y: 0}
+  m_SizeDelta: {x: 91.333984, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &644233726
 MonoBehaviour:
@@ -708,6 +708,7 @@ GameObject:
   - component: {fileID: 917491742}
   - component: {fileID: 917491741}
   - component: {fileID: 917491740}
+  - component: {fileID: 917491743}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -778,7 +779,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 917491741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 917491743}
+        m_TargetAssemblyTypeName: NavigationButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &917491741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,6 +830,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917491738}
   m_CullTransparentMesh: 1
+--- !u!114 &917491743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917491738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9e565264017524faf7b0f2f6b858fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelToEnable: {fileID: 68033587}
+  panelToDisable: {fileID: 1032208109}
 --- !u!1 &1032208109
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1032208110
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1278,6 +1305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4badf362729d0eb48a63b54a0c6a9bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedElement: {fileID: 0}
 --- !u!1 &1461690991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1609,7 @@ GameObject:
   - component: {fileID: 1653574702}
   - component: {fileID: 1653574701}
   - component: {fileID: 1653574700}
+  - component: {fileID: 1653574703}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -1605,8 +1634,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 91.334, y: 30}
+  m_AnchoredPosition: {x: -55.08618, y: 0}
+  m_SizeDelta: {x: 91.333984, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1653574700
 MonoBehaviour:
@@ -1651,7 +1680,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1653574701}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1653574703}
+        m_TargetAssemblyTypeName: NavigationButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1653574701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1690,6 +1731,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653574698}
   m_CullTransparentMesh: 1
+--- !u!114 &1653574703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653574698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9e565264017524faf7b0f2f6b858fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelToEnable: {fileID: 1032208109}
+  panelToDisable: {fileID: 68033587}
 --- !u!1 &1861396047
 GameObject:
   m_ObjectHideFlags: 0
