@@ -126,13 +126,15 @@ public class RoomManager : MonoBehaviour
         {
             if (room != null)
             {
+                //TODO: room component required?
                 room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = true;
             }
         }
     }
 
-    public void OpenHider(GameObject room)
+    private void OpenHider(GameObject room)
     {
+        //TODO: room component required?
         room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = false;
     }
 

@@ -288,7 +288,6 @@ public class Player : MonoBehaviour
         player = character.gameObject;
         gameObject.transform.position = character.transform.position;
         currentCharacter = character.GetComponent<CharacterItem>().characterType;
-        print(character.layer);
 
         if (oldCharacter != null)
         {
