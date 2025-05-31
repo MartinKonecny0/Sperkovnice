@@ -9,6 +9,9 @@ public enum CharacterType
 public class CharacterItem : InteractableObject
 {
     public CharacterType characterType;
+    public string[] allDialogs;
+    public bool isDialogEnabled = true;
+    public int currDialogIndex;
 
     public bool isWalkingToDefault = false;
     public Transform defaultPosition;
@@ -21,7 +24,29 @@ public class CharacterItem : InteractableObject
 
     public override void Interact(GameObject character, Player playerScript)
     {
+        if (isDialogEnabled)
+        {
+            if (currDialogIndex <= allDialogs.Length - 1)
+            {
+                Debug.Log("Character " + characterType + " saying: " + allDialogs[currDialogIndex]);
+            }
+            else
+            {
+                Debug.LogError("Trying to start missing dialog");
+            }
+        }
         playerScript.ChangePlayerToCharacter(character, this.gameObject);
+    }
+
+    public void SetNextDialog()
+    {
+        isDialogEnabled = true;
+        currDialogIndex++;
+    }
+
+    public void DisableDialog()
+    {
+        isDialogEnabled = false;
     }
 
     void Update()

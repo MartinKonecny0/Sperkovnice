@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class SceneData
@@ -29,10 +30,10 @@ public class SceneData
     }
 
     public playerSave playerData;
-    public pickupItemSave[] allPickupItems;
-    public characterSave[] allCharacters;
+    public List<pickupItemSave> allPickupItems = new List<pickupItemSave>();
+    public List<characterSave> allCharacters = new List<characterSave>();
 
-    public SceneData(Player player, PickupItem[] items, CharacterItem[] characters)
+    public SceneData(Player player, List<PickupItem> items, List<CharacterItem> characters)
     {
         playerData = new playerSave();
         playerData.character = player.currentCharacter;
@@ -42,31 +43,35 @@ public class SceneData
 
         //set all pickup items in scene
         int i = 0;
-        allPickupItems = new pickupItemSave[items.Length];
         foreach (var item in items)
         {
-            pickupItemSave newItem = new pickupItemSave();
-            newItem.position = new float[2];
-            newItem.position[0] = item.transform.position.x;
-            newItem.position[1] = item.transform.position.y;
-            newItem.name = item.itemName;
-            newItem.roomName = item.transform.parent.name;
-            allPickupItems[i] = newItem;
-            i++;
+            if (item != null)
+            {
+                pickupItemSave newItem = new pickupItemSave();
+                newItem.position = new float[2];
+                newItem.position[0] = item.transform.position.x;
+                newItem.position[1] = item.transform.position.y;
+                newItem.name = item.itemName;
+                newItem.roomName = item.transform.parent.name;
+                allPickupItems.Add(newItem);
+                i++;
+            }
         }
 
         i = 0;
-        allCharacters = new characterSave[characters.Length];
         foreach (var character in characters)
         {
-            characterSave newCharacter = new characterSave();
-            newCharacter.position = new float[2];
-            newCharacter.position[0] = character.transform.position.x;
-            newCharacter.position[1] = character.transform.position.y;
-            newCharacter.character = character.characterType;
-            newCharacter.roomName = character.transform.parent.name;
-            allCharacters[i] = newCharacter;
-            i++;
+            if (character != null)
+            {
+                characterSave newCharacter = new characterSave();
+                newCharacter.position = new float[2];
+                newCharacter.position[0] = character.transform.position.x;
+                newCharacter.position[1] = character.transform.position.y;
+                newCharacter.character = character.characterType;
+                newCharacter.roomName = character.transform.parent.name;
+                allCharacters.Add(newCharacter);
+                i++;
+            }
         }
     }
 }

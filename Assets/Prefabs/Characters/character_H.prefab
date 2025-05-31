@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1568682291340511531}
   - component: {fileID: 9029461191174420116}
   - component: {fileID: 4645957551924972978}
-  - component: {fileID: 3565175078684483509}
   - component: {fileID: 4713536431400167531}
   m_Layer: 6
   m_Name: character_H
@@ -100,59 +99,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &3565175078684483509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231515561693712688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_Priority: 0
-  m_ComponentVersion: 5
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_AlphaCutoff: 0
-  m_ApplyToSortingLayers: 000000007740404909c4936001c07db6fd21cbc53ba111155b75786b8397ee79fb629f58936dd392
-  m_ShapePath:
-  - {x: -0.50000095, y: -1, z: 0}
-  - {x: -0.50000095, y: 1, z: 0}
-  - {x: 0.5, y: 1, z: 0}
-  - {x: 0.5, y: -1, z: 0}
-  m_ShapePathHash: 788732373
-  m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 0}
-  m_ShadowShape2DProvider:
-    rid: 3675078479295021126
-  m_ShadowCastingSource: 2
-  m_ShadowMesh:
-    m_Mesh: {fileID: 0}
-    m_LocalBounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 1, z: 0}
-    m_EdgeProcessing: 1
-    m_TrimEdge: 0
-    m_FlipX: 0
-    m_FlipY: 0
-    m_InitialTrim: 0
-  m_CastingOption: 1
-  m_PreviousTrimEdge: 0
-  m_PreviousEdgeProcessing: 1
-  m_PreviousShadowCastingSource: 2
-  m_PreviousShadowShape2DSource: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3675078479295021126
-      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data: 
 --- !u!114 &4713536431400167531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +114,11 @@ MonoBehaviour:
   icon: {fileID: 8309615740058018018, guid: f7b2f6b81676f264296f0e88666fc5e8, type: 3}
   type: 0
   characterType: 0
+  allDialogs:
+  - Hello I am Hedwig
+  - Second dialog
+  isDialogEnabled: 1
+  currDialogIndex: 0
   isWalkingToDefault: 0
   defaultPosition: {fileID: 0}
   walkSpeed: 2

@@ -12,8 +12,8 @@ public static class SaveManager
 {
     public static int saveSlot;
     public static Player player;
-    public static PickupItem[] allItems;
-    public static CharacterItem[] allCharacterItems;
+    public static List<PickupItem> allItems;
+    public static List<CharacterItem> allCharacterItems;
 
     public static void Save()
     {

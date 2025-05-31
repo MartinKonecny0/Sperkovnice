@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +8,7 @@ using static UnityEditor.Progress;
 public class RoomManager : MonoBehaviour
 {
     //indexes of rooms
-    //   |_0_| 1 |_2_|
+    //   |_0_|_1_|_2_|
     //   |_3_|___|_4_|
     //   |_5_|_6_|_7_|
 
@@ -22,9 +23,9 @@ public class RoomManager : MonoBehaviour
     public SpriteRenderer inventoryIcon;
     public GameObject playerPrefab;
     public GameObject[] allItemsPrefabs;
-    public PickupItem[] allItems;
+    public List<PickupItem> allItems;
     public GameObject[] allCharactersPrefabs;
-    public CharacterItem[] allCharacterItems;
+    public List<CharacterItem> allCharacterItems;
 
     public int[,] worldsMap =
     {
@@ -161,7 +162,6 @@ public class RoomManager : MonoBehaviour
         ClearScene();
 
         // setting up player and characters
-        allCharacterItems = new CharacterItem[loadedSceneData.allCharacters.Length];
         int i = 0;
         foreach (characterSave character in loadedSceneData.allCharacters)
         {
@@ -181,12 +181,11 @@ public class RoomManager : MonoBehaviour
                 CloseAllHiders();
                 OpenHider(spawnedObject.transform.parent.gameObject);
             }
-            allCharacterItems[i] = spawnedObject.GetComponent<CharacterItem>();
+            allCharacterItems.Add(spawnedObject.GetComponent<CharacterItem>());
             i++;
         }
 
         // setting up pickup items
-        allItems = new PickupItem[loadedSceneData.allPickupItems.Length];
         i = 0;
         foreach (pickupItemSave item in loadedSceneData.allPickupItems)
         {
@@ -194,28 +193,36 @@ public class RoomManager : MonoBehaviour
             GameObject spawnedObject = Instantiate(gameObjectToSpawn);
             spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
             spawnedObject.transform.position = new Vector2(item.position[0], item.position[1]);
-            allItems[i] = spawnedObject.GetComponent<PickupItem>();
+            allItems.Add(spawnedObject.GetComponent<PickupItem>());
             if (spawnedObject.GetComponent<PickupItem>().itemName == loadedSceneData.playerData.playerCurrentItem)
             {
                 player.PickUpItem(spawnedObject);
             }
             i++;
         }
-
-
     }
 
     public void ClearScene()
     {
         foreach (var item in allItems)
         {
-            Destroy(item.gameObject);
-        }
-
+            if (item != null)
+            {
+                Destroy(item.gameObject);
+            }
+        } 
+        allItems.Clear();
+        
         foreach (var character in allCharacterItems)
         {
-            Destroy(character.gameObject);
+            if (character != null)
+            {
+                Destroy(character.gameObject);
+            }
         }
+        allCharacterItems.Clear();
+
+        inventoryIcon.sprite = null;
     }
 
     public GameObject GetItemPrefabByName(string name)

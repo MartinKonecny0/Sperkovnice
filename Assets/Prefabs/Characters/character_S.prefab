@@ -306,7 +306,6 @@ GameObject:
   - component: {fileID: 7659980703778485048}
   - component: {fileID: 7746940886123055539}
   - component: {fileID: 6495385400038608660}
-  - component: {fileID: 486009002505452265}
   - component: {fileID: 2617039347092069146}
   m_Layer: 6
   m_Name: character_S
@@ -396,59 +395,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &486009002505452265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891009741080070570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_Priority: 0
-  m_ComponentVersion: 5
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_AlphaCutoff: 0
-  m_ApplyToSortingLayers: 000000007740404909c4936001c07db6fd21cbc53ba111155b75786b8397ee79fb629f58936dd392
-  m_ShapePath:
-  - {x: -0.50000095, y: -1, z: 0}
-  - {x: -0.50000095, y: 1, z: 0}
-  - {x: 0.5, y: 1, z: 0}
-  - {x: 0.5, y: -1, z: 0}
-  m_ShapePathHash: 788732373
-  m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 0}
-  m_ShadowShape2DProvider:
-    rid: 3675078479295021126
-  m_ShadowCastingSource: 2
-  m_ShadowMesh:
-    m_Mesh: {fileID: 0}
-    m_LocalBounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 1, z: 0}
-    m_EdgeProcessing: 1
-    m_TrimEdge: 0
-    m_FlipX: 0
-    m_FlipY: 0
-    m_InitialTrim: 0
-  m_CastingOption: 1
-  m_PreviousTrimEdge: 0
-  m_PreviousEdgeProcessing: 1
-  m_PreviousShadowCastingSource: 2
-  m_PreviousShadowShape2DSource: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3675078479295021126
-      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data: 
 --- !u!114 &2617039347092069146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,12 +409,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 8309615740058018018, guid: f7b2f6b81676f264296f0e88666fc5e8, type: 3}
   type: 0
-  roomManager: {fileID: 0}
   characterType: 2
+  allDialogs:
+  - Hello I am shamman
+  - Second dialog
+  isDialogEnabled: 1
+  currDialogIndex: 0
   isWalkingToDefault: 0
   defaultPosition: {fileID: 0}
   walkSpeed: 2
-  characterSprite: {fileID: 5349213225159809363}
 --- !u!1 &6151146422985721508
 GameObject:
   m_ObjectHideFlags: 0
