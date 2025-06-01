@@ -22,26 +22,34 @@ public static class SaveManager
         SceneData sceneData = new SceneData(player, allItems, allCharacterItems);
 
         string saveString = JsonUtility.ToJson(sceneData, true);
-        Debug.Log(saveString);
         byte[] bytesToStore = new UTF8Encoding(true).GetBytes(saveString);
 
         fileStream.Write(bytesToStore);
         fileStream.Close();
+        Debug.Log("Saved successful - into file " + path);
     }
-
+    /// <summary>
+    /// Method finds save file and gets saved data from loaded json
+    /// </summary>
+    /// <returns>scene data or null if there is no such file</returns>
     public static SceneData Load()
     {
         string path = Application.persistentDataPath + "/saveFile" + saveSlot + ".json";
 
         string fileContent;
-
-        using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
-        using (StreamReader reader = new StreamReader(fileStream))
+        if (File.Exists(path))
         {
-            fileContent = reader.ReadToEnd();
+            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (StreamReader reader = new StreamReader(fileStream))
+            {
+                fileContent = reader.ReadToEnd();
+            }
+            SceneData loadedSceneData = JsonUtility.FromJson<SceneData>(fileContent);
+            return loadedSceneData;
         }
 
-        SceneData loadedSceneData = JsonUtility.FromJson<SceneData>(fileContent);
-        return loadedSceneData;
+        return null;
+
+
     }
 }

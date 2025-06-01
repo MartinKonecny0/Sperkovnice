@@ -68,6 +68,8 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }
+
+        Load();
     }
 
     private void PrintAllRooms()
@@ -159,6 +161,12 @@ public class RoomManager : MonoBehaviour
     public void Load()
     {
         SceneData loadedSceneData = SaveManager.Load();
+        if (loadedSceneData == null)
+        {
+            Debug.Log("Load file does not exist -> empty load");
+            return;
+        }
+
         ClearScene();
 
         // setting up player and characters
