@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public GameObject inventoryItem; //item picked up by player
     public string inventoryItemName;
 
+    public SpriteRenderer characterSprite;
+
     public enum PlayerStates
     {
         move, //player is fully able to walk
@@ -281,7 +283,8 @@ public class Player : MonoBehaviour
 
     public void ChangePlayerToCharacter(GameObject oldCharacter, GameObject character)
     {
-        character.layer = 0; // default layer
+        character.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1; // visual layer
+        character.layer = 0; // default layer - interaction layer
         character.GetComponent<Collider2D>().isTrigger = false;
 
         gameObject.transform.parent = character.transform;
@@ -291,6 +294,7 @@ public class Player : MonoBehaviour
 
         if (oldCharacter != null)
         {
+            oldCharacter.GetComponentInChildren<SpriteRenderer>().sortingOrder = 0;
             oldCharacter.GetComponent<Collider2D>().isTrigger = true;
             oldCharacter.layer = 6; // interactable layer
         }
