@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public CharacterType currentCharacter;
 
     public float interactionHeight = 3f;
+    public float interactionWidth = 10f; // used for detecting walls while dropping items
+
     private float interactTimer = 0f;
     public float interactCooldown = 0.5f; //time to enter interact state
     private float dropTimer = 0f;
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour
     public GameObject[] barIcons = new GameObject[3]; // [0] - previous, [1] - selected, [2] - next
 
     public SpriteRenderer inventoryIcon;
+    public float leftWallDistance;
+    public float rightWallDistance;
     public GameObject inventoryItem; //item picked up by player
     public string inventoryItemName;
 
@@ -263,12 +267,25 @@ public class Player : MonoBehaviour
     /// </returns>
     public bool DropItem()
     {
-        //TODO: how it should work - where the item should be placed
-        // !! wide item can be placed into the wall !!
         if (inventoryItem != null)
         {
+            GetWallsDistances();
+            float itemWidth = inventoryItem.GetComponent<PickupItem>().itemWidth;
+            float offsetFromWall = 0;
+
+            // if items would be placed into the wall calculate offset so they will be placed next to the wall
+            if (itemWidth / 2 > rightWallDistance)
+            {
+                offsetFromWall = -Mathf.Abs(itemWidth / 2 - rightWallDistance);
+            }
+
+            if (itemWidth / 2 > leftWallDistance)
+            {
+                offsetFromWall = Mathf.Abs(itemWidth / 2 - leftWallDistance);
+            }
+
             inventoryItem.SetActive(true);
-            inventoryItem.transform.position = player.transform.position;
+            inventoryItem.transform.position = player.transform.position + new Vector3(offsetFromWall, 0, 0);
             inventoryItem.transform.parent = player.transform.parent;
             inventoryItem = null;
             inventoryItemName = "";
@@ -279,6 +296,15 @@ public class Player : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void GetWallsDistances()
+    {
+        LayerMask layer = LayerMask.GetMask("Walls");
+        var rightHit = Physics2D.Raycast(player.transform.position + new Vector3(0, 0.1f, 0), transform.right, interactionWidth, layer);
+        rightWallDistance = rightHit.distance;
+        var leftHit = Physics2D.Raycast(player.transform.position + new Vector3(0, 0.1f, 0), -transform.right, interactionWidth, layer);
+        leftWallDistance = leftHit.distance;
     }
 
     public void ChangePlayerToCharacter(GameObject oldCharacter, GameObject character)

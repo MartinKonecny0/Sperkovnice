@@ -7,7 +7,7 @@ public class MovementItem : InteractableObject
 {
     public RoomManager roomManager;
     public Transform teleportPosition;
-    public int destinationRoomIndex; //TODO: could be calculated based on the teleportPosition
+    public int destinationRoomIndex;
     public CharacterType[] charactersAbleToOpen; // whitelist of characters that are able to use this item
 
     void Start()

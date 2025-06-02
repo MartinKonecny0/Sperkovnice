@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7780171357140796080}
   - component: {fileID: 5327171653209056790}
   - component: {fileID: 8150944608097909310}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,6 +531,7 @@ MonoBehaviour:
   roomManager: {fileID: 0}
   teleportPosition: {fileID: 8233297264088976708}
   destinationRoomIndex: 0
+  charactersAbleToOpen: 
 --- !u!1 &6626864311154305669
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +543,7 @@ GameObject:
   - component: {fileID: 191465958373068479}
   - component: {fileID: 3652900479300216240}
   - component: {fileID: 1092781990020955586}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: leftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,6 +819,7 @@ MonoBehaviour:
   roomManager: {fileID: 0}
   teleportPosition: {fileID: 8811922501450608133}
   destinationRoomIndex: 0
+  charactersAbleToOpen: 
 --- !u!1 &7886511528232821832
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public abstract class InteractableObject : MonoBehaviour
         movement,
         pickup,
         task,
-        dialog,
+        puzzle,
     }
     public Sprite icon;
     public InteractableType type;
