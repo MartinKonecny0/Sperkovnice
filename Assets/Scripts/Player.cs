@@ -290,6 +290,9 @@ public class Player : MonoBehaviour
             inventoryItem = null;
             inventoryItemName = "";
             inventoryIcon.sprite = null;
+            playerState = PlayerStates.move;
+            ClearListOfItems(itemsList);
+            CloseItemBar();
             return true;
         }
         else

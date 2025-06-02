@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public enum CharacterType
 {
@@ -16,6 +17,8 @@ public class CharacterItem : InteractableObject
     public bool isWalkingToDefault = false;
     public Transform defaultPosition;
     public float walkSpeed = 2;
+
+    private float lastDistance;
 
     void Start()
     {
@@ -35,6 +38,9 @@ public class CharacterItem : InteractableObject
                 Debug.LogError("Trying to start missing dialog");
             }
         }
+
+        character.GetComponent<CharacterItem>().StartWalkToDefault();
+        
         playerScript.ChangePlayerToCharacter(character, this.gameObject);
     }
 
@@ -49,16 +55,27 @@ public class CharacterItem : InteractableObject
         isDialogEnabled = false;
     }
 
+    public void StartWalkToDefault()
+    {
+        lastDistance = 0;
+        defaultPosition = transform.parent.GetComponent<Room>().defaultPosition.transform;
+        isWalkingToDefault = true;
+    }
+
     void Update()
     {
         if (isWalkingToDefault)
         {
-            float deltaDefault = 0.1f;
+            float deltaDefault = 0.05f;
             float horizontal;
 
             float distance = defaultPosition.position.x - transform.position.x;
-
-            if (Mathf.Abs(distance) >= deltaDefault)
+            if (distance * lastDistance < 0)
+            {
+                GetComponent<Rigidbody2D>().linearVelocityX = 0;
+                isWalkingToDefault = false;
+            }
+            else
             {
                 if (defaultPosition.position.x - transform.position.x < 0)
                 {
@@ -71,11 +88,9 @@ public class CharacterItem : InteractableObject
                 }
                 GetComponent<Rigidbody2D>().linearVelocityX = horizontal * walkSpeed;
             }
-            else
-            {
-                GetComponent<Rigidbody2D>().linearVelocityX = 0;
-                isWalkingToDefault = false;
-            }
+
+            lastDistance = distance;
         }
+        //animator.speed = GetComponent<Rigidbody2D>().linearVelocityX;
     }
 }
