@@ -33,6 +33,8 @@ public class MenuManager : MonoBehaviour
     }
     void Start()
     {
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         GetActiveMenuElements();
         SelectButtonByIndex(selectedButtonIndex);
     }

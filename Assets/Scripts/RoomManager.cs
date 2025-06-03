@@ -68,7 +68,9 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }
-
+        
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         Load();
     }
 

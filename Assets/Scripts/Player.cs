@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public float dropCooldown = 1f; //duration for how long player have to hold space to drop item
     public List<GameObject> itemsList;
     private int selectedItemIndex;
-    public GameObject itemBar;
+    public ItemBar itemBar;
     public GameObject[] barIcons = new GameObject[3]; // [0] - previous, [1] - selected, [2] - next
 
     public SpriteRenderer inventoryIcon;
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
                 //TODO: should stay in interact state
                 playerState = PlayerStates.move;
                 ClearListOfItems(itemsList);
-                CloseItemBar();
+                itemBar.HideBar();
             }
         }
         // button hold
@@ -135,7 +135,8 @@ public class Player : MonoBehaviour
                     {
                         playerState = PlayerStates.interact;
                         CreateListOfItems(hits);
-                        ShowItemBar();
+                        selectedItemIndex = 0;
+                        itemBar.CreateBar(itemsList);
                         interactTimer = 0;
                     }
                 }
@@ -159,19 +160,18 @@ public class Player : MonoBehaviour
                 if (interactTimer >= interactCooldown)
                 {
                     ClearListOfItems(itemsList);
-                    CloseItemBar();
+                    itemBar.HideBar();
                     playerState = PlayerStates.move;
                     interactTimer = 0;
                 }
             }
             else
             {
-                //TODO: player can drop item while in interacting state
                 // swapping selected items
                 if (lastHorizontal > 0)
                 {
                     selectedItemIndex = (selectedItemIndex + 1) % itemsList.Count;
-                    UpdateSelected();
+                    itemBar.RotateBarRight(selectedItemIndex);
                 }
                 else if (lastHorizontal < 0)
                 {
@@ -180,13 +180,14 @@ public class Player : MonoBehaviour
                     {
                         selectedItemIndex = itemsList.Count - 1;
                     }
-                    UpdateSelected();
+                    itemBar.RotateBarLeft(selectedItemIndex);
+
                 }
 
                 interactTimer = 0;
             }
-            lastHorizontal = horizontal;
         }
+        lastHorizontal = horizontal;
     }
     void CreateListOfItems(RaycastHit2D[] hits)
     {
@@ -198,45 +199,6 @@ public class Player : MonoBehaviour
     void ClearListOfItems(List<GameObject> list)
     {
         list.Clear();
-    }
-
-    void UpdateSelected()
-    {
-        int itemsCount = itemsList.Count;
-        if (itemsCount > 1)
-        {
-            int nextItemIndex = (selectedItemIndex + 1) % itemsCount;
-            barIcons[2].GetComponent<SpriteRenderer>().sprite = itemsList[nextItemIndex].GetComponent<InteractableObject>().icon;
-        }
-        else
-        {
-            barIcons[2].GetComponent<SpriteRenderer>().sprite = null;
-        }
-        if (itemsCount > 2)
-        {
-            int prevItemIndex = selectedItemIndex - 1;
-            if (prevItemIndex < 0)
-            {
-                prevItemIndex = itemsCount - 1;
-            }
-            barIcons[0].GetComponent<SpriteRenderer>().sprite = itemsList[prevItemIndex].GetComponent<InteractableObject>().icon;
-        }
-        else
-        {
-            barIcons[0].GetComponent<SpriteRenderer>().sprite = null;
-        }
-        barIcons[1].GetComponent<SpriteRenderer>().sprite = itemsList[selectedItemIndex].GetComponent<InteractableObject>().icon;
-    }
-    void ShowItemBar()
-    {
-        selectedItemIndex = 0;
-        UpdateSelected();
-        itemBar.SetActive(true);
-    }
-    void CloseItemBar()
-    {
-        selectedItemIndex = 0;
-        itemBar.SetActive(false);
     }
 
     public void PickUpItem(GameObject item)
@@ -292,7 +254,7 @@ public class Player : MonoBehaviour
             inventoryIcon.sprite = null;
             playerState = PlayerStates.move;
             ClearListOfItems(itemsList);
-            CloseItemBar();
+            itemBar.HideBar();
             return true;
         }
         else
