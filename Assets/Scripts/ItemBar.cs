@@ -171,10 +171,10 @@ public class ItemBar : MonoBehaviour
     void Update()
     {
         float difference = Mathf.Abs(currentAngle - futureAngle);
-
+        rotationSpeed = difference * 5f;
         if (difference > 0)
         {
-            if (difference < 0.03f)
+            if (difference < 0.003f)
             {
                 currentAngle = futureAngle;
             }

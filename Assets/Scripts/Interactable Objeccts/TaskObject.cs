@@ -24,13 +24,13 @@ public class TaskObject : InteractableObject
             return;
         }
         
-        playerItemName = playerScript.inventoryItemName;
+        playerItemName = playerScript.GetComponent<PickupItem>().itemName;
         
         // item is required
         if (requiredItemsNames.Contains(playerItemName))
         {
             Debug.Log("Player is holding object for this task");
-            requiredItemsNames.Remove(playerScript.inventoryItemName);
+            requiredItemsNames.Remove(playerScript.GetComponent<PickupItem>().itemName);
             playerScript.inventoryIcon.sprite = null;
             Destroy(playerScript.inventoryItem);
         }

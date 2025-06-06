@@ -27,13 +27,15 @@ public class MovementItem : InteractableObject
     }
     private void TeleportCharacter(GameObject character)
     {
-        // player is using door in this room and leaving it
-        GameObject roomLeaving = character.transform.parent.gameObject;
+        // hider management
+        int roomLeavingIndex = character.transform.parent.GetComponent<Room>().roomPositionIndex;
+        roomManager.CloseHider(roomLeavingIndex);
+        roomManager.OpenHider(destinationRoomIndex);
+
         // player is teleported to this room
         GameObject roomEntering = roomManager.activeRooms[destinationRoomIndex].transform.gameObject;
         character.transform.position = teleportPosition.position;
         character.transform.parent = roomEntering.transform;
         roomManager.presentRoom = roomEntering;
-        roomManager.SwapHiders(roomLeaving, roomEntering);
     }
 }

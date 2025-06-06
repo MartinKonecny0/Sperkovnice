@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 6495385400038608660}
   - component: {fileID: 2617039347092069146}
   m_Layer: 6
-  m_Name: character_S
+  m_Name: character_P
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   type: 0
   characterType: 2
   allDialogs:
-  - Hello I am shamman
+  - Hello I am priest
   - Second dialog
   isDialogEnabled: 1
   currDialogIndex: 0
@@ -496,7 +496,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0.4339623, b: 0.057751186, a: 1}
+  m_Color: {r: 0.8246449, g: 0.96981126, b: 0.36413658, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

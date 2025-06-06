@@ -19,6 +19,7 @@ public class RoomManager : MonoBehaviour
     public int numOfWorlds = 5;
     public int numOfRooms = 8;
     public GameObject[,] allRooms;
+    public GameObject[] allHiders;
 
     public SpriteRenderer inventoryIcon;
     public GameObject playerPrefab;
@@ -29,25 +30,73 @@ public class RoomManager : MonoBehaviour
 
     public int[,] worldsMap =
     {
+        // Engineer's world
+        {
+            0, 0, 3,
+            0,    0,
+            0, 0, 0,
+        },
         // Hedwig's world
         {
             0, 0, 0,
-            0, 0,
-            0, 0, 0,
+            0,    0,
+            0, 0, 1,
         },
-        // Engineer's  world
+        // Priest's world
         {
-            1, 0, 1,
-            1, 1,
-            1, 0, 1,
+            0, 2, 2,
+            0,    2,
+            2, 2, 2,
         },
-        // Shaman's  world
+        // Shaman's world
         {
-            2, 2, 1,
-            1, 1,
-            1, 0, 1,
+            3, 3, 3,
+            3,    3,
+            3, 3, 2,
+        },
+        // Aunt's world
+        {
+            4, 4, 4,
+            4,    4,
+            3, 4, 4,
         },
     };
+
+
+    public int[,] hidersMap =
+    {
+        // Engineer's hiders
+        {
+            0, 0, 0,
+            0,    0,
+            0, 0, 0,
+        },
+        // Hedwig's hiders
+        {
+            2, 1, 1,
+            1,    1,
+            1, 1, 1,
+        },
+        // Priest's hiders
+        {
+            2, 2, 2,
+            2,    2,
+            2, 2, 2,
+        },
+        // Shaman's hiders
+        {
+            3, 3, 3,
+            3,    3,
+            3, 3, 3,
+        },
+        // Aunt's hiders
+        {
+            4, 4, 4,
+            4,    4,
+            4, 4, 4,
+        },
+    };
+
 
 
     private void Start()
@@ -63,6 +112,10 @@ public class RoomManager : MonoBehaviour
                     {
                         allRooms[roomsCounter, worldsCounter] = positionsParent[roomsCounter].transform
                             .GetChild(worldsCounter).gameObject;
+                        if (allRooms[roomsCounter, worldsCounter] != null)
+                        {
+                            allRooms[roomsCounter, worldsCounter].GetComponent<Room>().roomPositionIndex = roomsCounter;
+                        }
                     }
 
                 }
@@ -102,6 +155,13 @@ public class RoomManager : MonoBehaviour
                 activeRooms[i] = allRooms[i, indexFromMap];
             }
         }
+
+        for (int i = 0; i < allHiders.Length; i++)
+        {
+            int hiderType = hidersMap[(int)characterType, i];
+            allHiders[i].GetComponentInChildren<Animator>().SetFloat("position", hiderType);
+        }
+
     }
 
     public void DeactivateAllRooms()
@@ -115,33 +175,37 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// changes hiders of two rooms while changing rooms
-    /// </summary>
-    public void SwapHiders(GameObject roomToHide, GameObject roomToShow)
+    public void OpenHider(int roomPositionIndex)
     {
-        //TODO: find better way how instead of gameObject.Find()
-        roomToHide.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = true;
-        roomToShow.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = false;
-    }
-
-    public void CloseAllHiders()
-    {
-        foreach (GameObject room in activeRooms)
+        if (roomPositionIndex < allHiders.Length)
         {
-            if (room != null)
+            if (allHiders[roomPositionIndex] != null)
             {
-                //TODO: room component required?
-                room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = true;
+                allHiders[roomPositionIndex].GetComponentInChildren<Animator>().SetBool("isOpen", true);
             }
         }
     }
 
-    private void OpenHider(GameObject room)
+    public void CloseHider(int roomPositionIndex)
     {
-        //TODO: room component required?
-        room.transform.Find("hider").GetComponent<SpriteRenderer>().enabled = false;
+        if (roomPositionIndex < allHiders.Length)
+        {
+            if (roomPositionIndex < allHiders.Length)
+            {
+                allHiders[roomPositionIndex].GetComponentInChildren<Animator>().SetBool("isOpen", false);
+
+            }
+        }
     }
+
+    public void CloseAllHiders()
+    {
+        for (int i = 0; i < allHiders.Length; i++)
+        {
+            //CloseHider(i);
+        }
+    }
+
 
     public void ExitToMenu()
     {
@@ -152,8 +216,6 @@ public class RoomManager : MonoBehaviour
         SetupSave();
         SaveManager.Save();
     }
-
-
     public void SetupSave()
     {
         SaveManager.allItems = allItems;
@@ -180,6 +242,10 @@ public class RoomManager : MonoBehaviour
             
             spawnedObject.transform.parent = GetRoomByName(character.roomName).transform;
             spawnedObject.transform.position = new Vector2(character.position[0], character.position[1]);
+            if (character.isWalkingToDefault)
+            {
+                spawnedObject.GetComponent<CharacterItem>().StartWalkToDefault();
+            }
             if (spawnedObject.GetComponent<CharacterItem>().characterType == loadedSceneData.playerData.character)
             {
                 GameObject spawnedPlayer = Instantiate(playerPrefab, spawnedObject.transform);
@@ -189,7 +255,7 @@ public class RoomManager : MonoBehaviour
                 player.ChangePlayerToCharacter(null, spawnedObject);
 
                 CloseAllHiders();
-                OpenHider(spawnedObject.transform.parent.gameObject);
+                OpenHider(spawnedObject.transform.parent.GetComponent<Room>().roomPositionIndex);
             }
             allCharacterItems.Add(spawnedObject.GetComponent<CharacterItem>());
             i++;
@@ -201,10 +267,11 @@ public class RoomManager : MonoBehaviour
         {
             GameObject gameObjectToSpawn = GetItemPrefabByName(item.name);
             GameObject spawnedObject = Instantiate(gameObjectToSpawn);
+            spawnedObject.GetComponent<PickupItem>().id = item.id;
             spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
             spawnedObject.transform.position = new Vector2(item.position[0], item.position[1]);
             allItems.Add(spawnedObject.GetComponent<PickupItem>());
-            if (spawnedObject.GetComponent<PickupItem>().itemName == loadedSceneData.playerData.playerCurrentItem)
+            if (spawnedObject.GetComponent<PickupItem>().id == loadedSceneData.playerData.playerCurrentItemId)
             {
                 player.PickUpItem(spawnedObject);
             }

@@ -57,11 +57,7 @@ MonoBehaviour:
   interactCooldown: 0.2
   dropCooldown: 0.5
   itemsList: []
-  itemBar: {fileID: 3214331625187524288}
-  barIcons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  itemBar: {fileID: 6250327906250242}
   inventoryIcon: {fileID: 0}
   leftWallDistance: 0
   rightWallDistance: 0
@@ -77,6 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2150512791492741126}
+  - component: {fileID: 6250327906250242}
   m_Layer: 0
   m_Name: ItemBar
   m_TagString: Untagged
@@ -92,10 +89,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3214331625187524288}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.6427876, y: 0, z: 0, w: 0.7660445}
   m_LocalPosition: {x: 0, y: 2.847, z: 0}
-  m_LocalScale: {x: 3.4095845, y: 1.5154799, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3513058668776149885}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -80, y: 0, z: 0}
+--- !u!114 &6250327906250242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214331625187524288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068959a14ca2e6e419c8af5698f73c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconPrefab: {fileID: 9097231229855151, guid: d5ff42ed0801db74795546f8a876eccc, type: 3}
+  rotationSpeed: 5
+  incrementPerItem: 0.3
+  futureAngle: 0
+  currentAngle: 0
+  flattenAngle: 80

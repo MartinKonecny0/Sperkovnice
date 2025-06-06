@@ -3,9 +3,11 @@ using UnityEngine.TextCore.Text;
 
 public enum CharacterType
 {
-    Hedwig, // Hedvika
     Engineer, // Topiè
+    Hedwig, // Hedvika
+    Priest, //Knìz
     Shaman, // Šaman
+    Aunt, // Teta
 }
 public class CharacterItem : InteractableObject
 {
@@ -66,9 +68,6 @@ public class CharacterItem : InteractableObject
     {
         if (isWalkingToDefault)
         {
-            float deltaDefault = 0.05f;
-            float horizontal;
-
             float distance = defaultPosition.position.x - transform.position.x;
             if (distance * lastDistance < 0)
             {
@@ -77,6 +76,7 @@ public class CharacterItem : InteractableObject
             }
             else
             {
+                float horizontal;
                 if (defaultPosition.position.x - transform.position.x < 0)
                 {
 

@@ -47,9 +47,6 @@ public static class SaveManager
             SceneData loadedSceneData = JsonUtility.FromJson<SceneData>(fileContent);
             return loadedSceneData;
         }
-
         return null;
-
-
     }
 }

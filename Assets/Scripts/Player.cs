@@ -31,13 +31,11 @@ public class Player : MonoBehaviour
     public List<GameObject> itemsList;
     private int selectedItemIndex;
     public ItemBar itemBar;
-    public GameObject[] barIcons = new GameObject[3]; // [0] - previous, [1] - selected, [2] - next
 
     public SpriteRenderer inventoryIcon;
     public float leftWallDistance;
     public float rightWallDistance;
     public GameObject inventoryItem; //item picked up by player
-    public string inventoryItemName;
 
     public SpriteRenderer characterSprite;
 
@@ -57,6 +55,7 @@ public class Player : MonoBehaviour
     {
         SaveManager.player = this;
         roomManager = GameObject.Find("GameManager").GetComponent<RoomManager>();
+        inventoryIcon = roomManager.inventoryIcon;
     }
 
     private void OnEnable()
@@ -207,14 +206,12 @@ public class Player : MonoBehaviour
         {
 
             inventoryItem = item;
-            inventoryItemName = item.GetComponent<PickupItem>().itemName;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
         }
         else
         {
             DropItem();
             inventoryItem = item;
-            inventoryItemName = item.GetComponent<PickupItem>().itemName;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
         }
         // item is still present in the scene
@@ -250,7 +247,6 @@ public class Player : MonoBehaviour
             inventoryItem.transform.position = player.transform.position + new Vector3(offsetFromWall, 0, 0);
             inventoryItem.transform.parent = player.transform.parent;
             inventoryItem = null;
-            inventoryItemName = "";
             inventoryIcon.sprite = null;
             playerState = PlayerStates.move;
             ClearListOfItems(itemsList);

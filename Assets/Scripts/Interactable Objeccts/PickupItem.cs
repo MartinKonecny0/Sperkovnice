@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PickupItem : InteractableObject
 {
-    // TODO: dangerous duplicate items while saving and loading
+    public int id;
     public string itemName;
     public float itemWidth;
     void Start()

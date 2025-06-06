@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         playerInput = new InputSystem_Actions();
+        GetActiveMenuElements();
     }
     private void OnEnable()
     {
@@ -35,7 +36,6 @@ public class MenuManager : MonoBehaviour
     {
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
-        GetActiveMenuElements();
         SelectButtonByIndex(selectedButtonIndex);
     }
     void Update()
@@ -89,19 +89,33 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void SelectNextButton()
+    public void SelectNextButton()
     {
+        
         allSelectableButtons[selectedButtonIndex].Deselect();
         selectedButtonIndex = (selectedButtonIndex + 1) % allSelectableButtons.Length;
+        
+        // skips disabled buttons
+        if (!allSelectableButtons[selectedButtonIndex].isActiveAndEnabled)
+        {
+            SelectNextButton();
+        }
+
         allSelectableButtons[selectedButtonIndex].Select();
     }
-    private void SelectPreviousButton()
+    public void SelectPreviousButton()
     {
         allSelectableButtons[selectedButtonIndex].Deselect();
         selectedButtonIndex = (selectedButtonIndex - 1) % allSelectableButtons.Length;
         if (selectedButtonIndex < 0)
         {
             selectedButtonIndex = allSelectableButtons.Length - 1;
+        }
+
+        // skips disabled buttons
+        if (!allSelectableButtons[selectedButtonIndex].isActiveAndEnabled)
+        {
+            SelectPreviousButton();
         }
         allSelectableButtons[selectedButtonIndex].Select();
     }
