@@ -46,17 +46,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "b3f66d0b-7751-423f-908b-a11c5bd95930",
-                    "path": "<HID::SteelSeries SteelSeries Stratus XL>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "1D Axis",
                     "id": "0a6f2d7b-816d-4fed-9f3c-3a6746817be7",
                     "path": "1DAxis",

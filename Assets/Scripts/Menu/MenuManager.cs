@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -7,6 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static BinderElement;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class MenuManager : MonoBehaviour
@@ -32,6 +35,10 @@ public class MenuManager : MonoBehaviour
     public GameObject initialPanel;
     public Stack<GameObject> panelsStack;
 
+    // settings save variables
+    public Dictionary<int, string> allBindingStrings;
+    public float soundValue;
+
     private void Awake()
     {
         playerInput = new InputSystem_Actions();
@@ -49,11 +56,12 @@ public class MenuManager : MonoBehaviour
     }
     void Start()
     {
+        allBindingStrings = new Dictionary<int, string>();
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         panelsStack = new Stack<GameObject>();
         selectedStack = new Stack<int>();
-
+        LoadSettings();
         AddPanel(initialPanel);
         GetActiveMenuElements();
         SelectButtonByIndex(selectedStack.First());
@@ -140,13 +148,11 @@ public class MenuManager : MonoBehaviour
         lastInteract = interact;
         lastBack = back;
     }
-
     private void HoldReset()
     {
         skipNextButtonUp = false;
         holdSelectionTimer = 0;
     }
-
     public void AddPanel(GameObject panelToAdd)
     {
         panelToAdd.SetActive(true);
@@ -157,7 +163,6 @@ public class MenuManager : MonoBehaviour
 
         SelectButtonByIndex(0);
     }
-
     public void RemovePanel()
     {
         if (panelsStack.Count > 1)
@@ -172,13 +177,11 @@ public class MenuManager : MonoBehaviour
             SelectButtonByIndex(selectedStack.First());
         }
     }
-
     private void GetActiveMenuElements()
     {
         GameObject currentPanel = panelsStack.First();
         currSelectElements = currentPanel.GetComponentsInChildren<MenuElement>();
     }
-
     private void SelectButtonByIndex(int indexToSelect)
     {
         if (selectedStack.First() < currSelectElements.Length)
@@ -197,7 +200,6 @@ public class MenuManager : MonoBehaviour
             Debug.LogError("Element with this index does not exists.");
         }
     }
-
     public void SelectNextButton()
     {
 
@@ -232,5 +234,103 @@ public class MenuManager : MonoBehaviour
             SelectPreviousButton();
         }
         currSelectElements[currSelected].Select();
+    }
+
+    public void ChangeBinding(binderType currentBinderType, string bindingString)
+    {
+        playerInput.Disable();
+        if (allBindingStrings.ContainsValue(bindingString))
+        {
+            Debug.LogError("Cant bind one key to two different actions");
+            playerInput.Enable();
+
+            return;
+        }
+
+        if (currentBinderType == binderType.left)
+        {
+            string rightBindString = playerInput.Player.Move.bindings[2].path;
+            for (int i = 0; i < playerInput.Player.Move.bindings.Count; i++)
+            {
+                playerInput.Player.Move.ChangeBinding(i).Erase();
+            }
+            playerInput.Player.Move.AddCompositeBinding("Axis")
+                .With("Negative", bindingString)
+                .With("Positive", rightBindString);
+        }
+        else if (currentBinderType == binderType.right)
+        {
+            string leftBindString = playerInput.Player.Move.bindings[1].path;
+            for (int i = 0; i < playerInput.Player.Move.bindings.Count; i++)
+            {
+                playerInput.Player.Move.ChangeBinding(i).Erase();
+            }
+            playerInput.Player.Move.AddCompositeBinding("Axis")
+                .With("Negative", leftBindString)
+                .With("Positive", bindingString);
+        }
+        else if (currentBinderType == binderType.interact)
+        {
+            for (int i = 0; i < playerInput.Player.Interact.bindings.Count; i++)
+            {
+                playerInput.Player.Interact.ChangeBinding(i).Erase();
+            }
+            playerInput.Player.Interact.AddCompositeBinding("Axis")
+                .With("Positive", bindingString);
+        }
+        else if (currentBinderType == binderType.escape)
+        {
+
+            for (int i = 0; i < playerInput.Player.Escape.bindings.Count; i++)
+            {
+                playerInput.Player.Escape.ChangeBinding(i).Erase();
+            }
+            playerInput.Player.Escape.AddCompositeBinding("Axis")
+                .With("Positive", bindingString);
+        }
+        ChangeBindSettings(currentBinderType, bindingString);
+
+        Debug.Log("Binding of " + currentBinderType + " changed to " + bindingString);
+        playerInput.Enable();
+    }
+
+    public void SaveSettings()
+    {
+        SetupSave();
+        SettingsSaveManager.Save();
+    }
+    public void SetupSave()
+    {
+        SettingsSaveManager.allBindingStrings = allBindingStrings;
+        SettingsSaveManager.soundValue = soundValue;
+    }
+
+    public void ChangeBindSettings(binderType currentBinderType,string bindString)
+    {
+        if (allBindingStrings.ContainsKey((int)currentBinderType))
+        {
+            allBindingStrings[(int)currentBinderType] = bindString;
+        }
+        else
+        {
+            allBindingStrings.Add((int)currentBinderType, bindString);
+
+        }
+    }
+
+    public void LoadSettings()
+    {
+        SettingsData loadedSettingsData = SettingsSaveManager.Load();
+        if (loadedSettingsData == null)
+        {
+            Debug.Log("Custom settings file does not exist -> empty default settings");
+            return;
+        }
+
+        foreach (var bind in loadedSettingsData.bindingData)
+        {
+            ChangeBinding(bind.binderType, bind.bindingString);
+        }
+
     }
 }

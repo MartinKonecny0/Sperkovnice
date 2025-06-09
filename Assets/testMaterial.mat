@@ -54,7 +54,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ExpandAmount: 2.93
+    - _ExpandAmount: 0
     - _OutlineThickness: 3.62
     - _OutlineWidth: 0.08
     - distance: 5

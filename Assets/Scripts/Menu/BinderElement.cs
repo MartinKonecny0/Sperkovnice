@@ -28,79 +28,17 @@ public class BinderElement : MenuElement
         {
             if (currentAction is ButtonControl button)
             {
-                ChangeBinding(currentAction);
+                string bindingString = $"<{currentAction.device.name}>/" + currentAction.name;
+                menuManager.ChangeBinding(currentBinderType, bindingString);
+
+                menuManager.SaveSettings();
+
                 menuManager.skipNextButtonUp = true;
+                menuManager.RemovePanel();
             }
-            menuManager.RemovePanel();
         });
     }
 
-    public void ChangeBinding(InputControl currentAction)
-    {
-        menuManager.playerInput.Disable();
-
-        string bindingString = $"<{currentAction.device.name}>/" + currentAction.name;
-        if (allBindingStrings.Contains(bindingString))
-        {
-            Debug.LogError("Cant bind one key to two different actions");
-            menuManager.playerInput.Enable();
-
-            return;
-        }
-
-
-        if (currentBinderType == binderType.left)
-        {
-            string rightBindString = menuManager.playerInput.Player.Move.bindings[2].path;
-            for (int i = 0; i < menuManager.playerInput.Player.Move.bindings.Count; i++)
-            {
-                menuManager.playerInput.Player.Move.ChangeBinding(i).Erase();
-            }
-            Debug.Log(rightBindString + " and " + bindingString);
-
-            //menuManager.playerInput.Player.Move.ChangeBinding()
-            menuManager.playerInput.Player.Move.AddCompositeBinding("Axis")
-                .With("Negative", bindingString)
-                .With("Positive", rightBindString);
-        }
-        else if (currentBinderType == binderType.right)
-        {
-            string leftBindString = menuManager.playerInput.Player.Move.bindings[1].path;
-            Debug.Log(leftBindString + " and " + bindingString);
-
-            for (int i = 0; i < menuManager.playerInput.Player.Move.bindings.Count; i++)
-            {
-                menuManager.playerInput.Player.Move.ChangeBinding(i).Erase();
-            }
-
-            menuManager.playerInput.Player.Move.AddCompositeBinding("Axis")
-                .With("Negative", leftBindString)
-                .With("Positive", bindingString);
-        }
-        else if (currentBinderType == binderType.interact)
-        {
-            for (int i = 0; i < menuManager.playerInput.Player.Interact.bindings.Count; i++)
-            {
-                menuManager.playerInput.Player.Interact.ChangeBinding(i).Erase();
-            }
-            menuManager.playerInput.Player.Interact.AddCompositeBinding("Axis")
-                .With("Positive", bindingString);
-        }
-        else if (currentBinderType == binderType.escape)
-        {
-
-            for (int i = 0; i < menuManager.playerInput.Player.Escape.bindings.Count; i++)
-            {
-                menuManager.playerInput.Player.Escape.ChangeBinding(i).Erase();
-            }
-            menuManager.playerInput.Player.Escape.AddCompositeBinding("Axis")
-                .With("Positive", bindingString);
-        }
-        Debug.Log("Binding changed of " + bindingString);
-
-        menuManager.playerInput.Enable();
-
-    }
 
     public void GetAllBindingString()
     {
@@ -108,16 +46,16 @@ public class BinderElement : MenuElement
         int i = 0;
         foreach (InputBinding bind in menuManager.playerInput.Player.Move.bindings)
         {
-
-            allBindingStrings.Add(menuManager.playerInput.Player.Move.bindings[i].GetNameOfComposite() + "COMPOSITE NAME Move");
-            allBindingStrings.Add(bind.path);
-            i++;
+            if (!bind.isComposite)
+            {
+                allBindingStrings.Add(bind.path);
+                i++;
+            }
         }
 
         i = 0;
         foreach (InputBinding bind in menuManager.playerInput.Player.Interact.bindings)
         {
-            allBindingStrings.Add(menuManager.playerInput.Player.Interact.bindings[i].GetNameOfComposite() + "COMPOSITE NAME Interact");
             allBindingStrings.Add(bind.path);
             i++;
         }
@@ -125,7 +63,6 @@ public class BinderElement : MenuElement
         i = 0;
         foreach (InputBinding bind in menuManager.playerInput.Player.Escape.bindings)
         {
-            allBindingStrings.Add(menuManager.playerInput.Player.Escape.bindings[0].GetNameOfComposite() + "COMPOSITE NAME escape");
             allBindingStrings.Add(bind.path);
             i++;
         }

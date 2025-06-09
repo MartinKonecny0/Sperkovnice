@@ -58,9 +58,7 @@ public class SceneData
             playerData.playerCurrentItemId = 0;
         }
 
-
-           //set all pickup items in scene
-        int i = 0;
+        //set all pickup items in scene
         foreach (var item in items)
         {
             if (item != null)
@@ -73,11 +71,9 @@ public class SceneData
                 newItem.name = item.itemName;
                 newItem.roomName = item.transform.parent.name;
                 allPickupItems.Add(newItem);
-                i++;
             }
         }
 
-        i = 0;
         foreach (var character in characters)
         {
             if (character != null)
@@ -90,7 +86,6 @@ public class SceneData
                 newCharacter.isWalkingToDefault = character.isWalkingToDefault;
                 newCharacter.roomName = character.transform.parent.name;
                 allCharacters.Add(newCharacter);
-                i++;
             }
         }
     }
