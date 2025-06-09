@@ -1,3 +1,5 @@
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -5,13 +7,12 @@ using UnityEngine.UI;
 public class LoadButton : MenuElement
 {
     public int saveSlot;
-    private DeleteLoadButton loadButton;
+    private bool isEmptySlot;
     public Text loadInfoText;
     public Color highlightColor;
 
     void Start()
     {
-        loadButton = GetComponentInChildren<DeleteLoadButton>();
         SetLoadInfo();
     }
 
@@ -21,12 +22,12 @@ public class LoadButton : MenuElement
         SceneData data = SaveManager.Load();
         if (data != null)
         {
-            loadButton.Enable();
+            isEmptySlot = false;
             loadInfoText.text = data.metaData.saveDate + "\n" + data.playerData.character;
         }
         else
         {
-            loadButton.Disable();
+            isEmptySlot = true;
             loadInfoText.text = "Empty load";
         }
     }
@@ -36,6 +37,17 @@ public class LoadButton : MenuElement
         Deselect();
         SaveManager.saveSlot = saveSlot;
         SceneManager.LoadScene(0);
+    }
+
+    public override void HoldInteract()
+    {
+        if (!isEmptySlot)
+        {
+            string path = Application.persistentDataPath + "/saveFile" + saveSlot + ".json";
+            File.Delete(path);
+            Debug.Log(Application.persistentDataPath + "/saveFile" + saveSlot + ".json" + " - DELETED");
+            SetLoadInfo();
+        }
     }
 
     public override void Select()

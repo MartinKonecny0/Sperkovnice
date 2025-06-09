@@ -32,7 +32,7 @@ public class RoomManager : MonoBehaviour
     {
         // Engineer's world
         {
-            0, 0, 3,
+            0, 0, 0,
             0,    0,
             0, 0, 0,
         },
@@ -202,7 +202,7 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < allHiders.Length; i++)
         {
-            //CloseHider(i);
+            CloseHider(i);
         }
     }
 

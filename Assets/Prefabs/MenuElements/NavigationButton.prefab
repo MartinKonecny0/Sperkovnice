@@ -225,5 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9e565264017524faf7b0f2f6b858fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactHoldCooldown: 999
   highlightColor: {r: 0.9187388, g: 1, b: 0.2245282, a: 1}
-  panelToEnable: {fileID: 0}
+  panelToAdd: {fileID: 0}

@@ -11,10 +11,12 @@ public class Player : MonoBehaviour
     private InputAction movement;
     public float lastHorizontal = 0f;
     public float horizontal = 0f;
-
     private InputAction interaction;
     private float lastInteract;
     private float interact;
+    private InputAction escape;
+    private float lastBack;
+    private float back;
 
     public float speed = 1f;
     public GameObject player;
@@ -65,11 +67,15 @@ public class Player : MonoBehaviour
 
         interaction = playerInput.Player.Interact;
         interaction.Enable();
+
+        escape = playerInput.Player.Escape;
+        escape.Enable();
     }
 
     private void Interact()
     {
         interact = interaction.ReadValue<float>();
+        back = escape.ReadValue<float>();
         //button up
         if (lastInteract > 0 & interact == 0)
         {
@@ -186,6 +192,12 @@ public class Player : MonoBehaviour
                 interactTimer = 0;
             }
         }
+
+        if (back > 0)
+        {
+            roomManager.ExitToMenu();
+        }
+
         lastHorizontal = horizontal;
     }
     void CreateListOfItems(RaycastHit2D[] hits)

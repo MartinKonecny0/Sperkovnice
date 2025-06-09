@@ -51,7 +51,7 @@ MonoBehaviour:
   speed: 2
   player: {fileID: 0}
   playerState: 0
-  currentCharacter: 0
+  currentCharacter: 1
   interactionHeight: 2.9
   interactionWidth: 10
   interactCooldown: 0.2
@@ -62,7 +62,6 @@ MonoBehaviour:
   leftWallDistance: 0
   rightWallDistance: 0
   inventoryItem: {fileID: 0}
-  inventoryItemName: 
   characterSprite: {fileID: 0}
 --- !u!1 &3214331625187524288
 GameObject:
