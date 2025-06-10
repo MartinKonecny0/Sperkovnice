@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -12,9 +13,8 @@ public enum CharacterType
 public class CharacterItem : InteractableObject
 {
     public CharacterType characterType;
-    public string[] allDialogs;
+    public List<Dialog> dialogsToSay;
     public bool isDialogEnabled = true;
-    public int currDialogIndex;
 
     public bool isWalkingToDefault = false;
     public Transform defaultPosition;
@@ -27,36 +27,45 @@ public class CharacterItem : InteractableObject
         type = InteractableType.character;
     }
 
-    public override void Interact(GameObject character, Player playerScript)
+    public override void Interact(GameObject oldCharacter, Player playerScript)
     {
-        if (isDialogEnabled)
+        oldCharacter.GetComponent<CharacterItem>().StartDialogsWith(this.characterType);
+        
+        oldCharacter.GetComponent<CharacterItem>().StartWalkToDefault();
+        playerScript.ChangePlayerToCharacter(oldCharacter, this.gameObject);
+    }
+
+    public void StartDialogsWith(CharacterType receiver)
+    {
+        List<Dialog> filteredDialogs = GetDialogsForCharacter(receiver);
+
+        foreach (Dialog dialog in filteredDialogs)
         {
-            if (currDialogIndex <= allDialogs.Length - 1)
+            Debug.Log("Character " + characterType + " saying: " + dialog.thingToSay);
+        }
+    }
+
+    public List<Dialog> GetDialogsForCharacter(CharacterType receiverCharacterType)
+    {
+        List<Dialog> filteredDialogs = new List<Dialog>();
+        foreach (Dialog dialog in dialogsToSay)
+        {
+            if (dialog == null)
             {
-                Debug.Log("Character " + characterType + " saying: " + allDialogs[currDialogIndex]);
+                continue;
             }
-            else
+
+            if (dialog.receiver == receiverCharacterType)
             {
-                Debug.LogError("Trying to start missing dialog");
+                filteredDialogs.Add(dialog);
             }
         }
-
-        character.GetComponent<CharacterItem>().StartWalkToDefault();
-        
-        playerScript.ChangePlayerToCharacter(character, this.gameObject);
+        return filteredDialogs;
     }
-
-    public void SetNextDialog()
+    public void AddDialogToSay(Dialog dialogToSay)
     {
-        isDialogEnabled = true;
-        currDialogIndex++;
+        dialogsToSay.Add(dialogToSay);
     }
-
-    public void DisableDialog()
-    {
-        isDialogEnabled = false;
-    }
-
     public void StartWalkToDefault()
     {
         lastDistance = 0;

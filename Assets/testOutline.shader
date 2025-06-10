@@ -2,8 +2,12 @@ Shader "Custom/SpriteExpand"
 {
     Properties
     {
-        _MainTex("Texture", 2D) = "white" {}
-        _ExpandAmount("Expand Amount", Float) = 10.0
+        _MainTex ("Texture", 2D) = "white" {}
+        _Color("Main Color", Color) = (1,1,1,1)
+        _OutlineColor("Outline Color", Color) = (0,0,0,1)
+        _OutlineThickness("Outline Thickness", Float) = 1
+        _Precision("Precision", Float) = 1
+
     }
 
     SubShader
@@ -23,41 +27,62 @@ Shader "Custom/SpriteExpand"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _ExpandAmount;
+            float4 _Color;
+            float4 _OutlineColor;
+            float _OutlineThickness;
+            float _Precision;
+            float4 _MainTex_TexelSize;
 
             struct appdata
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float4 color : COLOR;
+
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float4 color : COLOR;
+
             };
 
             v2f vert(appdata v)
             {
                 v2f o;
-
-                // Centered UV from (0.5, 0.5)
-                float2 centeredUV = v.uv - float2(0.5, 0.5);
-
-                // Expand in direction of UV
-                float3 offset = float3(centeredUV * _ExpandAmount, 0);
-
-                // Apply to vertex
-                float4 worldVertex = v.vertex + float4(offset, 0);
-                o.vertex = UnityObjectToClipPos(worldVertex);
+                o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.color = v.color;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Otherwise, fully transparent
-                return tex2D(_MainTex, i.uv);
+                float2 texelSize = _MainTex_TexelSize * _OutlineThickness;
+                float alpha = tex2D(_MainTex, i.uv).a;
+
+                float outlineAlpha = 0;
+                for (int x = -_Precision; x <= _Precision; x++)
+                {
+                    for (int y = -_Precision; y <= _Precision; y++)
+                    {
+                        if (x == 0 && y == 0) continue;
+                        float2 offset = texelSize * normalize(float2(x, y));
+                        float neighborAlpha = tex2D(_MainTex, i.uv + offset).a;
+                        outlineAlpha = max(outlineAlpha, neighborAlpha);
+                    }
+                }
+                // If current pixel is transparent but neighbor is not, draw outline
+                if (alpha < 0.9 && outlineAlpha > 0.1)
+                {
+                    return _OutlineColor;
+                }
+
+                // Regular sprite color
+                fixed4 col = tex2D(_MainTex, i.uv);
+                return col;
             }
             ENDCG
         }

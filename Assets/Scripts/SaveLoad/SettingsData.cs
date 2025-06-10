@@ -19,20 +19,20 @@ public class SettingsData
     }
 
     public soundSave soundData;
-    public bindSave[] bindingData;
+    public List<bindSave> bindingData;
 
-    public SettingsData(Dictionary<int, string> allBindingString, float soundVolume)
+    public SettingsData(Dictionary<int, string> currBindDictionary, float soundVolume)
     {
         soundData = new soundSave();
-        bindingData = new bindSave[allBindingString.Count];
+        bindingData = new List<bindSave>();
         soundData.soundVolume = soundVolume;
 
-        for(int i = 0; i < allBindingString.Count; i++)
+        foreach (KeyValuePair<int, string> bind in currBindDictionary)
         {
             bindSave newSave = new bindSave();
-            newSave.bindingString = allBindingString[i];
-            newSave.binderType = (BinderElement.binderType)i;
-            bindingData[i] = newSave;
+            newSave.binderType = (BinderElement.binderType)bind.Key;
+            newSave.bindingString = bind.Value;
+            bindingData.Add(newSave);
         }
     }
 }

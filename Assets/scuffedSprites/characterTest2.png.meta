@@ -63,7 +63,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -89,8 +89,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureFormat: 4
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -3498,7 +3498,7 @@ TextureImporter:
         rgba: 4294902015
     - name: bone_10
       guid: b2642d7c71d235d408b1d06011d80234
-      position: {x: 190.64296, y: 0.000101593054, z: 0}
+      position: {x: 190.64296, y: 0.00011685175, z: 0}
       rotation: {x: 0, y: 0, z: 0.019548096, w: 0.99980897}
       length: 215.24783
       parentId: 1
@@ -4258,16 +4258,16 @@ TextureImporter:
       'boneIndex[1]': 0
       'boneIndex[2]': 0
       'boneIndex[3]': 0
-    - 'weight[0]': 0.8933253
-      'weight[1]': 0.10667466
+    - 'weight[0]': 0.89332515
+      'weight[1]': 0.10667482
       'weight[2]': 0
       'weight[3]': 0
       'boneIndex[0]': 1
       'boneIndex[1]': 6
       'boneIndex[2]': 0
       'boneIndex[3]': 0
-    - 'weight[0]': 0.5151338
-      'weight[1]': 0.48486617
+    - 'weight[0]': 0.5151336
+      'weight[1]': 0.48486638
       'weight[2]': 0
       'weight[3]': 0
       'boneIndex[0]': 1

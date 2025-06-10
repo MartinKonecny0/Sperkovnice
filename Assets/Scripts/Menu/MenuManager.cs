@@ -36,7 +36,8 @@ public class MenuManager : MonoBehaviour
     public Stack<GameObject> panelsStack;
 
     // settings save variables
-    public Dictionary<int, string> allBindingStrings;
+    public List<string> allBindStrings;
+    public Dictionary<int, string> currentBindDictionary;
     public float soundValue;
 
     private void Awake()
@@ -56,7 +57,7 @@ public class MenuManager : MonoBehaviour
     }
     void Start()
     {
-        allBindingStrings = new Dictionary<int, string>();
+        currentBindDictionary = new Dictionary<int, string>();
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         panelsStack = new Stack<GameObject>();
@@ -236,16 +237,16 @@ public class MenuManager : MonoBehaviour
         currSelectElements[currSelected].Select();
     }
 
+    
     public void ChangeBinding(binderType currentBinderType, string bindingString)
     {
-        playerInput.Disable();
-        if (allBindingStrings.ContainsValue(bindingString))
+        if (currentBindDictionary.ContainsValue(bindingString))
         {
             Debug.LogError("Cant bind one key to two different actions");
-            playerInput.Enable();
-
             return;
         }
+
+        playerInput.Disable();
 
         if (currentBinderType == binderType.left)
         {
@@ -288,12 +289,37 @@ public class MenuManager : MonoBehaviour
             playerInput.Player.Escape.AddCompositeBinding("Axis")
                 .With("Positive", bindingString);
         }
-        ChangeBindSettings(currentBinderType, bindingString);
+        UpdateDictionary(currentBinderType, bindingString);
 
         Debug.Log("Binding of " + currentBinderType + " changed to " + bindingString);
+        PrintDictionary();
         playerInput.Enable();
     }
 
+    public void PrintDictionary()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentBindDictionary.ContainsKey(i))
+            {
+
+                print(currentBindDictionary[i]);
+            }
+        }
+    }
+
+    public void UpdateDictionary(binderType currentBinderType, string bindString)
+    {
+        if (currentBindDictionary.ContainsKey((int)currentBinderType))
+        {
+            currentBindDictionary[(int)currentBinderType] = bindString;
+        }
+        else
+        {
+            currentBindDictionary.Add((int)currentBinderType, bindString);
+
+        }
+    }
     public void SaveSettings()
     {
         SetupSave();
@@ -301,23 +327,9 @@ public class MenuManager : MonoBehaviour
     }
     public void SetupSave()
     {
-        SettingsSaveManager.allBindingStrings = allBindingStrings;
+        SettingsSaveManager.allBindingStrings = currentBindDictionary;
         SettingsSaveManager.soundValue = soundValue;
     }
-
-    public void ChangeBindSettings(binderType currentBinderType,string bindString)
-    {
-        if (allBindingStrings.ContainsKey((int)currentBinderType))
-        {
-            allBindingStrings[(int)currentBinderType] = bindString;
-        }
-        else
-        {
-            allBindingStrings.Add((int)currentBinderType, bindString);
-
-        }
-    }
-
     public void LoadSettings()
     {
         SettingsData loadedSettingsData = SettingsSaveManager.Load();

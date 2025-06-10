@@ -15,14 +15,12 @@ public class BinderElement : MenuElement
         escape
     }
 
-    public List<string> allBindingStrings;
     public binderType currentBinderType;
     public MenuManager menuManager;
 
     // when panel with this is enabled creates waiter for callback and changes the player Input
     void OnEnable()
     {
-        GetAllBindingString();
         // creates waiting callback 
         InputSystem.onAnyButtonPress.CallOnce(currentAction =>
         {
@@ -37,35 +35,6 @@ public class BinderElement : MenuElement
                 menuManager.RemovePanel();
             }
         });
-    }
-
-
-    public void GetAllBindingString()
-    {
-        allBindingStrings.Clear();
-        int i = 0;
-        foreach (InputBinding bind in menuManager.playerInput.Player.Move.bindings)
-        {
-            if (!bind.isComposite)
-            {
-                allBindingStrings.Add(bind.path);
-                i++;
-            }
-        }
-
-        i = 0;
-        foreach (InputBinding bind in menuManager.playerInput.Player.Interact.bindings)
-        {
-            allBindingStrings.Add(bind.path);
-            i++;
-        }
-
-        i = 0;
-        foreach (InputBinding bind in menuManager.playerInput.Player.Escape.bindings)
-        {
-            allBindingStrings.Add(bind.path);
-            i++;
-        }
     }
 
     public override void Interact()

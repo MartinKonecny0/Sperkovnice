@@ -315,7 +315,19 @@ public class RoomManager : MonoBehaviour
         Debug.LogError("Trying to get item with missing prefab. Name of item: " + name);
         return null;
     }
+    public CharacterItem GetCharacterInstanceByType(CharacterType type)
+    {
+        foreach (CharacterItem character in allCharacterItems)
+        {
+            if (character.characterType == type)
+            {
+                return character;
+            }
+        }
 
+        Debug.LogError("Trying to get character with missing prefab. Name of character: " + name);
+        return null;
+    }
     public GameObject GetCharacterPrefabByType(CharacterType type)
     {
         foreach (GameObject character in allCharactersPrefabs)

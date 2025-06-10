@@ -1,0 +1,1079 @@
+fileFormatVersion: 2
+guid: 1431466f8bd3a3945ba0fc746a73f850
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4313486267704714439
+    second: shaderTester_0
+  - first:
+      213: 2549916882374315304
+    second: shaderTester_1
+  - first:
+      213: -9107515708744057794
+    second: shaderTester_2
+  - first:
+      213: -6665443888666317347
+    second: shaderTester_3
+  - first:
+      213: -7456773614901391408
+    second: shaderTester_4
+  - first:
+      213: 2243110665747511669
+    second: shaderTester_5
+  - first:
+      213: -6392105662945876418
+    second: shaderTester_6
+  - first:
+      213: 4497769225398073106
+    second: shaderTester_7
+  - first:
+      213: 1875230762884542443
+    second: shaderTester_8
+  - first:
+      213: 3797308238287192569
+    second: shaderTester_9
+  - first:
+      213: 8342514857464088679
+    second: shaderTester_10
+  - first:
+      213: 4875571236022103952
+    second: shaderTester_11
+  - first:
+      213: -6500021676245779146
+    second: shaderTester_12
+  - first:
+      213: -2428885765047944549
+    second: shaderTester_13
+  - first:
+      213: 4026240045299379020
+    second: shaderTester_14
+  - first:
+      213: -1562968548423810305
+    second: shaderTester_15
+  - first:
+      213: -945718471624424293
+    second: shaderTester_16
+  - first:
+      213: -4876253728046411403
+    second: shaderTester_17
+  - first:
+      213: 7610306320325031057
+    second: shaderTester_18
+  - first:
+      213: 2095513288046924391
+    second: shaderTester_19
+  - first:
+      213: -3010925624996930578
+    second: shaderTester_20
+  - first:
+      213: -6068644908380374233
+    second: shaderTester_21
+  - first:
+      213: -6703566904063629755
+    second: shaderTester_22
+  - first:
+      213: -5272442533778593081
+    second: shaderTester_23
+  - first:
+      213: -7422646017001360559
+    second: shaderTester_24
+  - first:
+      213: -2895541123340454711
+    second: shaderTester_25
+  - first:
+      213: 3703460101659494243
+    second: shaderTester_26
+  - first:
+      213: -3493337355916603702
+    second: shaderTester_27
+  - first:
+      213: 6148338081948411801
+    second: shaderTester_28
+  - first:
+      213: 304166706203600986
+    second: shaderTester_29
+  - first:
+      213: -8855372301501687914
+    second: shaderTester_30
+  - first:
+      213: -6860115842909935992
+    second: shaderTester_31
+  - first:
+      213: 8730697899182172453
+    second: shaderTester_32
+  - first:
+      213: -5915166755482333402
+    second: shaderTester_33
+  - first:
+      213: 6854113344928937795
+    second: shaderTester_34
+  - first:
+      213: -8928105236316186975
+    second: shaderTester_35
+  - first:
+      213: -9025647026808101122
+    second: shaderTester_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shaderTester_0
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 952
+        width: 105
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c4a01a18e49cdb30800000000000000
+      internalID: 4313486267704714439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_1
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 875
+        width: 366
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82d41bcf4ef136320800000000000000
+      internalID: 2549916882374315304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_2
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 904
+        width: 124
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3c350277ba9b9180800000000000000
+      internalID: -9107515708744057794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_3
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 937
+        width: 114
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dddeeb929169f73a0800000000000000
+      internalID: -6665443888666317347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_4
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 916
+        width: 201
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0df0c49a7e7348890800000000000000
+      internalID: -7456773614901391408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 901
+        width: 203
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57935c71441212f10800000000000000
+      internalID: 2243110665747511669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_6
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 875
+        width: 132
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e36295134cdaa47a0800000000000000
+      internalID: -6392105662945876418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_7
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 887
+        width: 203
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2173981c7494b6e30800000000000000
+      internalID: 4497769225398073106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_8
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 872
+        width: 201
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bef2e958178260a10800000000000000
+      internalID: 1875230762884542443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_9
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 849
+        width: 126
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f1c5c549bfb2b430800000000000000
+      internalID: 3797308238287192569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_10
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 357
+        width: 196
+        height: 528
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 768c094ff0196c370800000000000000
+      internalID: 8342514857464088679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_11
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 854
+        width: 212
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09fa530153289a340800000000000000
+      internalID: 4875571236022103952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_12
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 62
+        width: 630
+        height: 794
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63df70b59b84bc5a0800000000000000
+      internalID: -6500021676245779146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_13
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 856
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9a7056f34dda4ed0800000000000000
+      internalID: -2428885765047944549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_14
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 838
+        width: 204
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ba5804df310e730800000000000000
+      internalID: 4026240045299379020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_15
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 844
+        width: 97
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff2471cd2683f4ae0800000000000000
+      internalID: -1562968548423810305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_16
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 837
+        width: 108
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b940d498f0220e2f0800000000000000
+      internalID: -945718471624424293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_17
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 823
+        width: 211
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5719e11e111145cb0800000000000000
+      internalID: -4876253728046411403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_18
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 827
+        width: 108
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19432e6f64d3d9960800000000000000
+      internalID: 7610306320325031057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_19
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 809
+        width: 116
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 762d524ab32c41d10800000000000000
+      internalID: 2095513288046924391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_20
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 794
+        width: 116
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eebdfecb81b0736d0800000000000000
+      internalID: -3010925624996930578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_21
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 775
+        width: 146
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72b3100eb97d7cba0800000000000000
+      internalID: -6068644908380374233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_22
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 760
+        width: 143
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546e833fa6528f2a0800000000000000
+      internalID: -6703566904063629755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_23
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 742
+        width: 203
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca677b337584d6b0800000000000000
+      internalID: -5272442533778593081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_24
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 727
+        width: 169
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1537a2f36c67df890800000000000000
+      internalID: -7422646017001360559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_25
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 713
+        width: 179
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c4b1c680b8f0d7d0800000000000000
+      internalID: -2895541123340454711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_26
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 682
+        width: 177
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3670f373755556330800000000000000
+      internalID: 3703460101659494243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_27
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 703
+        width: 105
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ace0dfbee2c258fc0800000000000000
+      internalID: -3493337355916603702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_28
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 698
+        width: 155
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 997aa8509e8435550800000000000000
+      internalID: 6148338081948411801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_29
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 672
+        width: 97
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5824cbf10e983400800000000000000
+      internalID: 304166706203600986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_30
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 667
+        width: 107
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 697982f3fc56b1580800000000000000
+      internalID: -8855372301501687914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_31
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 655
+        width: 108
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 886e251ccf8fbc0a0800000000000000
+      internalID: -6860115842909935992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_32
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 650
+        width: 108
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 529a00a6b7ba92970800000000000000
+      internalID: 8730697899182172453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_33
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 256
+        height: 554
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f86400d2b19eda0800000000000000
+      internalID: -5915166755482333402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_34
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 547
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 347f0c6c5c3be1f50800000000000000
+      internalID: 6854113344928937795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 431
+        width: 16
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a69118379ff81480800000000000000
+      internalID: -8928105236316186975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shaderTester_36
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 449
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef6ea0b59d57eb280800000000000000
+      internalID: -9025647026808101122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      shaderTester_0: 4313486267704714439
+      shaderTester_1: 2549916882374315304
+      shaderTester_10: 8342514857464088679
+      shaderTester_11: 4875571236022103952
+      shaderTester_12: -6500021676245779146
+      shaderTester_13: -2428885765047944549
+      shaderTester_14: 4026240045299379020
+      shaderTester_15: -1562968548423810305
+      shaderTester_16: -945718471624424293
+      shaderTester_17: -4876253728046411403
+      shaderTester_18: 7610306320325031057
+      shaderTester_19: 2095513288046924391
+      shaderTester_2: -9107515708744057794
+      shaderTester_20: -3010925624996930578
+      shaderTester_21: -6068644908380374233
+      shaderTester_22: -6703566904063629755
+      shaderTester_23: -5272442533778593081
+      shaderTester_24: -7422646017001360559
+      shaderTester_25: -2895541123340454711
+      shaderTester_26: 3703460101659494243
+      shaderTester_27: -3493337355916603702
+      shaderTester_28: 6148338081948411801
+      shaderTester_29: 304166706203600986
+      shaderTester_3: -6665443888666317347
+      shaderTester_30: -8855372301501687914
+      shaderTester_31: -6860115842909935992
+      shaderTester_32: 8730697899182172453
+      shaderTester_33: -5915166755482333402
+      shaderTester_34: 6854113344928937795
+      shaderTester_35: -8928105236316186975
+      shaderTester_36: -9025647026808101122
+      shaderTester_4: -7456773614901391408
+      shaderTester_5: 2243110665747511669
+      shaderTester_6: -6392105662945876418
+      shaderTester_7: 4497769225398073106
+      shaderTester_8: 1875230762884542443
+      shaderTester_9: 3797308238287192569
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
