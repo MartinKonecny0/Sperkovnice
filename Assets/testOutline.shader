@@ -4,7 +4,7 @@ Shader "Custom/SpriteExpand"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color("Main Color", Color) = (1,1,1,1)
-        _OutlineColor("Outline Color", Color) = (0,0,0,1)
+        [HDR] _OutlineColor("Outline Color", Color) = (0,0,0,2)
         _OutlineThickness("Outline Thickness", Float) = 1
         _Precision("Precision", Float) = 1
 

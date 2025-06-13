@@ -1,17 +1,17 @@
-using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 public class TaskObject : InteractableObject
 {
+    public int id;
     public bool isCompleted = false;
-    public ForcedAction[] taskCompletedActions;
+    public ForcedAction taskCompletedActions;
     public List<string> requiredItemsNames;
     private string playerItemName;
 
     void Start()
     {
+        taskCompletedActions = GetComponent<ForcedAction>();
         type = InteractableType.task;
     }
     public override void Interact(GameObject character, Player playerScript)
@@ -48,9 +48,10 @@ public class TaskObject : InteractableObject
     private void TaskCompleted()
     {
         isCompleted = true;
-        foreach (var action in taskCompletedActions)
+        if (taskCompletedActions != null)
         {
-            action.ExecuteAction();
+            taskCompletedActions.ExecuteAction();
         }
+        
     }
 }

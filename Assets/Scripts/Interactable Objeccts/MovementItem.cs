@@ -1,7 +1,5 @@
 using System.Linq;
-using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class MovementItem : InteractableObject
 {

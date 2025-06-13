@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ForceDialog : ForcedAction
 {
     public bool isActivatingDialog = true;
@@ -9,8 +7,7 @@ public class ForceDialog : ForcedAction
     {
         if (isActivatingDialog)
         {
-            CharacterItem speakerItem = roomManager.GetCharacterInstanceByType(dialogToForce.speaker);
-            speakerItem.AddDialogToSay(dialogToForce);
+
         }
         else
         {

@@ -1,6 +1,4 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 
 public abstract class MenuElement : MonoBehaviour
 {

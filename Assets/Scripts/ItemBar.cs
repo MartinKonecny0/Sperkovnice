@@ -1,11 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using Vector3 = UnityEngine.Vector3;
 
 public class ItemBar : MonoBehaviour
@@ -44,39 +38,21 @@ public class ItemBar : MonoBehaviour
 
         transform.Rotate(new Vector3(1, 0, 0), flattenAngle);
         selectedItemIndex = 0;
-        UpdateSelected();
+        GetCircularIndexSequence(allIcons.Length, selectedItemIndex);
     }
 
     public void RotateBarRight(int newSelectedIndex)
     {
         selectedItemIndex = newSelectedIndex;
         futureAngle -= oneItemAngle;
-        UpdateSelected();
+        GetCircularIndexSequence(allIcons.Length, selectedItemIndex);
     }
     public void RotateBarLeft(int newSelectedIndex)
     {
         selectedItemIndex = newSelectedIndex;
         futureAngle += oneItemAngle;
-        UpdateSelected();
-    }
-
-    public void UpdateSelected()
-    {
-        
-        int prevIndex = (selectedItemIndex - 1) % numOfItems;
-        if (prevIndex < 0)
-        {
-            prevIndex = numOfItems - 1;
-        }
-        int nextIndex = (selectedItemIndex + 1) % numOfItems;
-
         GetCircularIndexSequence(allIcons.Length, selectedItemIndex);
-
-
-        
-
     }
-
 
     public void GetCircularIndexSequence(int length, int index)
     {

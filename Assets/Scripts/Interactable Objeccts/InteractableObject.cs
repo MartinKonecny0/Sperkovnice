@@ -11,7 +11,7 @@ public abstract class InteractableObject : MonoBehaviour
     }
     public Sprite icon;
     public InteractableType type;
-
+    public bool isInteractable;
 
     public abstract void Interact(GameObject character, Player playerScript);
 }

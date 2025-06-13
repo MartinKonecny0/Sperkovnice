@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PuzzleItem : InteractableObject
@@ -11,6 +10,7 @@ public class PuzzleItem : InteractableObject
 
     public override void Interact(GameObject character, Player playerScript)
     {
+
         Debug.Log("Interacted with puzzle -> show puzzle screen");
     }
 }

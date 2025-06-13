@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 
 public class Player : MonoBehaviour
 {
@@ -50,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = new InputSystem_Actions();
+        playerInput = BindingManager.playerInput;
     }
 
     void Start()
@@ -158,6 +157,7 @@ public class Player : MonoBehaviour
         // player is staying still and choosing item to interact with
         else if (playerState == PlayerStates.interact)
         {
+            //TODO: update itemList while there is new item or some item is removed from ray
             if (horizontal != 0)
             {
                 interactTimer += Time.deltaTime;
@@ -195,6 +195,7 @@ public class Player : MonoBehaviour
 
         if (back > 0)
         {
+            roomManager.Save();
             roomManager.ExitToMenu();
         }
 

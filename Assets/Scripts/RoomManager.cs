@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +26,7 @@ public class RoomManager : MonoBehaviour
     public List<PickupItem> allItems;
     public GameObject[] allCharactersPrefabs;
     public List<CharacterItem> allCharacterItems;
+    public List<TaskObject> allTaskItems;
 
     public int[,] worldsMap =
     {
@@ -62,7 +62,6 @@ public class RoomManager : MonoBehaviour
         },
     };
 
-
     public int[,] hidersMap =
     {
         // Engineer's hiders
@@ -97,8 +96,6 @@ public class RoomManager : MonoBehaviour
         },
     };
 
-
-
     private void Start()
     {
         allRooms = new GameObject[numOfRooms, numOfWorlds];
@@ -126,7 +123,6 @@ public class RoomManager : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         Load();
     }
-
     private void PrintAllRooms()
     {
         for (int roomsCounter = 0; roomsCounter < numOfRooms; roomsCounter++)
@@ -220,6 +216,7 @@ public class RoomManager : MonoBehaviour
     {
         SaveManager.allItems = allItems;
         SaveManager.allCharacterItems = allCharacterItems;
+        SaveManager.allTaskItems = allTaskItems;
     }
 
     public void Load()
@@ -277,6 +274,18 @@ public class RoomManager : MonoBehaviour
             }
             i++;
         }
+
+        foreach (taskItemSave task in loadedSceneData.allTaskItems)
+        {
+            TaskObject taskItem = GetTaskInstanceById(task.id);
+            taskItem.id = task.id;
+            taskItem.isCompleted = task.isCompleted;
+            taskItem.requiredItemsNames.Clear();
+            foreach (string requiredString in task.remainingRequiredItems)
+            {
+                taskItem.requiredItemsNames.Add(requiredString);
+            }
+        }
     }
 
     public void ClearScene()
@@ -315,6 +324,19 @@ public class RoomManager : MonoBehaviour
         Debug.LogError("Trying to get item with missing prefab. Name of item: " + name);
         return null;
     }
+    public PickupItem GetItemInstanceById(int idToFind)
+    {
+        foreach (PickupItem item in allItems)
+        {
+            if (item.id == idToFind)
+            {
+                return item;
+            }
+        }
+
+        Debug.LogError("Trying to get item missing instance. Id of item: " + idToFind);
+        return null;
+    }
     public CharacterItem GetCharacterInstanceByType(CharacterType type)
     {
         foreach (CharacterItem character in allCharacterItems)
@@ -325,7 +347,7 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Debug.LogError("Trying to get character with missing prefab. Name of character: " + name);
+        Debug.LogError("Trying to get character missing instance. Type of character: " + type);
         return null;
     }
     public GameObject GetCharacterPrefabByType(CharacterType type)
@@ -338,10 +360,22 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Debug.LogError("Trying to get character with missing prefab. Name of character: " + name);
+        Debug.LogError("Trying to get character with missing prefab. Type of character: " + type);
         return null;
     }
+    public TaskObject GetTaskInstanceById(int taskId)
+    {
+        foreach (TaskObject task in allTaskItems)
+        {
+            if (task.id == taskId)
+            {
+                return task;
+            }
+        }
 
+        Debug.LogError("Trying to get task missing instance. Id of task: " + taskId);
+        return null;
+    }
     public GameObject GetRoomByName(string name)
     {
         foreach (GameObject room in allRooms)

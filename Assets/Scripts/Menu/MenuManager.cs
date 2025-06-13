@@ -1,16 +1,8 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static BinderElement;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 public class MenuManager : MonoBehaviour
 {
@@ -36,13 +28,13 @@ public class MenuManager : MonoBehaviour
     public Stack<GameObject> panelsStack;
 
     // settings save variables
-    public List<string> allBindStrings;
     public Dictionary<int, string> currentBindDictionary;
-    public float soundValue;
 
     private void Awake()
     {
-        playerInput = new InputSystem_Actions();
+        playerInput = BindingManager.playerInput;
+        BindingManager.InitBindingDictionary();
+        LoadSettings();
     }
     private void OnEnable()
     {
@@ -62,7 +54,6 @@ public class MenuManager : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         panelsStack = new Stack<GameObject>();
         selectedStack = new Stack<int>();
-        LoadSettings();
         AddPanel(initialPanel);
         GetActiveMenuElements();
         SelectButtonByIndex(selectedStack.First());
@@ -236,101 +227,17 @@ public class MenuManager : MonoBehaviour
         }
         currSelectElements[currSelected].Select();
     }
-
-    
-    public void ChangeBinding(binderType currentBinderType, string bindingString)
-    {
-        if (currentBindDictionary.ContainsValue(bindingString))
-        {
-            Debug.LogError("Cant bind one key to two different actions");
-            return;
-        }
-
-        playerInput.Disable();
-
-        if (currentBinderType == binderType.left)
-        {
-            string rightBindString = playerInput.Player.Move.bindings[2].path;
-            for (int i = 0; i < playerInput.Player.Move.bindings.Count; i++)
-            {
-                playerInput.Player.Move.ChangeBinding(i).Erase();
-            }
-            playerInput.Player.Move.AddCompositeBinding("Axis")
-                .With("Negative", bindingString)
-                .With("Positive", rightBindString);
-        }
-        else if (currentBinderType == binderType.right)
-        {
-            string leftBindString = playerInput.Player.Move.bindings[1].path;
-            for (int i = 0; i < playerInput.Player.Move.bindings.Count; i++)
-            {
-                playerInput.Player.Move.ChangeBinding(i).Erase();
-            }
-            playerInput.Player.Move.AddCompositeBinding("Axis")
-                .With("Negative", leftBindString)
-                .With("Positive", bindingString);
-        }
-        else if (currentBinderType == binderType.interact)
-        {
-            for (int i = 0; i < playerInput.Player.Interact.bindings.Count; i++)
-            {
-                playerInput.Player.Interact.ChangeBinding(i).Erase();
-            }
-            playerInput.Player.Interact.AddCompositeBinding("Axis")
-                .With("Positive", bindingString);
-        }
-        else if (currentBinderType == binderType.escape)
-        {
-
-            for (int i = 0; i < playerInput.Player.Escape.bindings.Count; i++)
-            {
-                playerInput.Player.Escape.ChangeBinding(i).Erase();
-            }
-            playerInput.Player.Escape.AddCompositeBinding("Axis")
-                .With("Positive", bindingString);
-        }
-        UpdateDictionary(currentBinderType, bindingString);
-
-        Debug.Log("Binding of " + currentBinderType + " changed to " + bindingString);
-        PrintDictionary();
-        playerInput.Enable();
-    }
-
-    public void PrintDictionary()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            if (currentBindDictionary.ContainsKey(i))
-            {
-
-                print(currentBindDictionary[i]);
-            }
-        }
-    }
-
-    public void UpdateDictionary(binderType currentBinderType, string bindString)
-    {
-        if (currentBindDictionary.ContainsKey((int)currentBinderType))
-        {
-            currentBindDictionary[(int)currentBinderType] = bindString;
-        }
-        else
-        {
-            currentBindDictionary.Add((int)currentBinderType, bindString);
-
-        }
-    }
     public void SaveSettings()
     {
         SetupSave();
         SettingsSaveManager.Save();
     }
-    public void SetupSave()
+    public static void SetupSave()
     {
-        SettingsSaveManager.allBindingStrings = currentBindDictionary;
-        SettingsSaveManager.soundValue = soundValue;
+        SettingsSaveManager.allBindingStrings = BindingManager.currentBindDictionary;
+        SettingsSaveManager.soundValue = BindingManager.soundValue;
     }
-    public void LoadSettings()
+    public static void LoadSettings()
     {
         SettingsData loadedSettingsData = SettingsSaveManager.Load();
         if (loadedSettingsData == null)
@@ -341,7 +248,7 @@ public class MenuManager : MonoBehaviour
 
         foreach (var bind in loadedSettingsData.bindingData)
         {
-            ChangeBinding(bind.binderType, bind.bindingString);
+            BindingManager.ChangeBinding(bind.binderType, bind.bindingString, true);
         }
 
     }

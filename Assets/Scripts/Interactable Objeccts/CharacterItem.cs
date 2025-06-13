@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public enum CharacterType
 {
@@ -33,6 +32,7 @@ public class CharacterItem : InteractableObject
         
         oldCharacter.GetComponent<CharacterItem>().StartWalkToDefault();
         playerScript.ChangePlayerToCharacter(oldCharacter, this.gameObject);
+        // TODO: add executing forced action?
     }
 
     public void StartDialogsWith(CharacterType receiver)

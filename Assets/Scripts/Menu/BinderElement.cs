@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using NUnit.Framework.Constraints;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Utilities;
@@ -27,10 +24,8 @@ public class BinderElement : MenuElement
             if (currentAction is ButtonControl button)
             {
                 string bindingString = $"<{currentAction.device.name}>/" + currentAction.name;
-                menuManager.ChangeBinding(currentBinderType, bindingString);
-
+                BindingManager.ChangeBinding(currentBinderType, bindingString, false);
                 menuManager.SaveSettings();
-
                 menuManager.skipNextButtonUp = true;
                 menuManager.RemovePanel();
             }
@@ -43,9 +38,11 @@ public class BinderElement : MenuElement
 
     public override void Select()
     {
+
     }
 
     public override void Deselect()
     {
+
     }
 }

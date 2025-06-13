@@ -1,12 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
-using System.Runtime.Serialization.Formatters;
-using UnityEngine.InputSystem.Interactions;
 using System.Text;
-using System.IO.Pipes;
-using System;
 
 public static class SaveManager
 {
@@ -14,12 +9,13 @@ public static class SaveManager
     public static Player player;
     public static List<PickupItem> allItems;
     public static List<CharacterItem> allCharacterItems;
+    public static List<TaskObject> allTaskItems;
 
     public static void Save()
     {
         string path = Application.persistentDataPath + "/saveFile" + saveSlot + ".json";
         FileStream fileStream = new FileStream(path, FileMode.Create);
-        SceneData sceneData = new SceneData(player, allItems, allCharacterItems);
+        SceneData sceneData = new SceneData(player, allItems, allCharacterItems, allTaskItems);
 
         string saveString = JsonUtility.ToJson(sceneData, true);
         byte[] bytesToStore = new UTF8Encoding(true).GetBytes(saveString);
