@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: outlineTest
-  m_Shader: {fileID: 4800000, guid: 2f01eaa09982746458398e8baba5d42b, type: 3}
+  m_Name: displayTest
+  m_Shader: {fileID: 4800000, guid: b3781dbff803ed240b773f96155aa529, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,21 +23,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _OutlineThickness: 2.95
-    - _Precision: 4.28
-    m_Colors:
-    - _Color: {r: 0.83396226, g: 0.72224283, b: 0.72224283, a: 1}
-    - _CoverColor: {r: 0.7433963, g: 0.30717695, b: 0.30717695, a: 0.5294118}
-    - _OutlineColor: {r: 2.996079, g: 2.8261986, b: 0, a: 1}
+    - _CellSize: 1
+    - _NumOfCells: 25
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

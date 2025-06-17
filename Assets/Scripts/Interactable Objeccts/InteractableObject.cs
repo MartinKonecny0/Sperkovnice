@@ -14,4 +14,10 @@ public abstract class InteractableObject : MonoBehaviour
     public bool isInteractable;
 
     public abstract void Interact(GameObject character, Player playerScript);
+     // idea public virtual bool IsInteractable()
+     // {
+     // return isInteractable; // override in movementItem and pickupItem
+     // }
+     //
+     //
 }

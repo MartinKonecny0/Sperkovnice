@@ -7,9 +7,10 @@ public class ItemBar : MonoBehaviour
     private GameObject[] allIcons;
     public GameObject iconPrefab;
     private int numOfItems;
+    public float ellipseHeight;
+    private float tiltAngle;
     private float X;
     private float Y;
-    private float angle;
     private float r;
 
     public float[,] points = new float[0, 0];
@@ -20,11 +21,10 @@ public class ItemBar : MonoBehaviour
     public float futureAngle;
 
     public float currentAngle;
-    public float flattenAngle;
     private int selectedItemIndex;
     public void CreateBar(List<GameObject> allItems)
     {
-        transform.Rotate(new Vector3(1, 0, 0), -flattenAngle);
+        transform.Rotate(new Vector3(1, 0, 0), -tiltAngle);
         numOfItems = allItems.Count;
         CalculatePointsOnCircle();
         allIcons = new GameObject[numOfItems];
@@ -33,10 +33,12 @@ public class ItemBar : MonoBehaviour
             Vector3 currIconPosition = new Vector3(points[i, 0], points[i, 1], 0);
             allIcons[i] = Instantiate(iconPrefab, transform);
             allIcons[i].transform.position = currIconPosition;
+            allIcons[i].transform.Rotate(new Vector3(1, 0, 0), -tiltAngle);
+
             allIcons[i].GetComponent<SpriteRenderer>().sprite = allItems[i].GetComponent<InteractableObject>().icon;
         }
 
-        transform.Rotate(new Vector3(1, 0, 0), flattenAngle);
+        transform.Rotate(new Vector3(1, 0, 0), tiltAngle);
         selectedItemIndex = 0;
         GetCircularIndexSequence(allIcons.Length, selectedItemIndex);
     }
@@ -107,6 +109,15 @@ public class ItemBar : MonoBehaviour
         }
     }
 
+    public void UpdateBar(List<GameObject> allItems)
+    {
+        HideBar();
+        if (allItems.Count > 0)
+        {
+            CreateBar(allItems);
+        }
+    }
+
     public void HideBar()
     {
         if (allIcons != null)
@@ -133,6 +144,17 @@ public class ItemBar : MonoBehaviour
             oneItemAngle = 2 * Mathf.PI / numOfItems;
             r = (numOfItems - 1) * incrementPerItem;
             GetFirstPoint(r);
+            if (r == 0)
+            {
+                tiltAngle = 0;
+
+            }
+            else
+            {
+                tiltAngle = 90 - (Mathf.Asin(ellipseHeight / r)) * Mathf.Rad2Deg;
+            }
+
+
             for (int pointCounter = 1; pointCounter < numOfItems; pointCounter++)
             {
                 GetRotatedPoint( points[pointCounter - 1, 0], points[pointCounter - 1, 1], oneItemAngle);
@@ -162,17 +184,14 @@ public class ItemBar : MonoBehaviour
             {
                 currentAngle -= Time.deltaTime * rotationSpeed;
             }
-
-
-
-            transform.Rotate(new Vector3(1, 0, 0), -flattenAngle);
+            transform.Rotate(new Vector3(1, 0, 0), -tiltAngle);
             CalculatePointsOnCircle();
             for (int i = 0; i < numOfItems; i++)
             {
                 allIcons[i].transform.position = new Vector3(points[i, 0], points[i, 1], 0);
             }
 
-            transform.Rotate(new Vector3(1, 0, 0), flattenAngle);
+            transform.Rotate(new Vector3(1, 0, 0), tiltAngle);
         }
     }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     private InputAction movement;
     public float lastHorizontal = 0f;
     public float horizontal = 0f;
+    private int lastNumOfItems;
     private InputAction interaction;
     private float lastInteract;
     private float interact;
@@ -83,7 +85,6 @@ public class Player : MonoBehaviour
                 itemsList[selectedItemIndex].GetComponent<InteractableObject>().Interact(player, this);
                 //TODO: should stay in interact state
                 playerState = PlayerStates.move;
-                ClearListOfItems(itemsList);
                 itemBar.HideBar();
             }
         }
@@ -123,12 +124,14 @@ public class Player : MonoBehaviour
         RaycastHit2D[] hits;
         hits = Physics2D.RaycastAll(player.transform.position, transform.up, interactionHeight, layer);
 
+        CreateListOfItems(hits);
+
         horizontal = movement.ReadValue<float>();
         // player is in walking state
         if (playerState == PlayerStates.move)
         {
             player.GetComponent<Rigidbody2D>().linearVelocityX = horizontal * speed;
-            if (hits.Length > 0) // there is at least one item to interact with
+            if (itemsList.Count > 0) // there is at least one item to interact with
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hits[0].distance, Color.white);
                 if (horizontal == 0 && dropTimer == 0)
@@ -138,7 +141,6 @@ public class Player : MonoBehaviour
                     if (interactTimer >= interactCooldown)
                     {
                         playerState = PlayerStates.interact;
-                        CreateListOfItems(hits);
                         selectedItemIndex = 0;
                         itemBar.CreateBar(itemsList);
                         interactTimer = 0;
@@ -157,14 +159,17 @@ public class Player : MonoBehaviour
         // player is staying still and choosing item to interact with
         else if (playerState == PlayerStates.interact)
         {
-            //TODO: update itemList while there is new item or some item is removed from ray
+            // special update of item bar when number of items player can interact with changes
+            if (lastNumOfItems != itemsList.Count)
+            {
+                itemBar.UpdateBar(itemsList);
+            }
             if (horizontal != 0)
             {
                 interactTimer += Time.deltaTime;
                 // leaving interacting state
                 if (interactTimer >= interactCooldown)
                 {
-                    ClearListOfItems(itemsList);
                     itemBar.HideBar();
                     playerState = PlayerStates.move;
                     interactTimer = 0;
@@ -199,18 +204,22 @@ public class Player : MonoBehaviour
             roomManager.ExitToMenu();
         }
 
+        lastNumOfItems = itemsList.Count;
         lastHorizontal = horizontal;
     }
     void CreateListOfItems(RaycastHit2D[] hits)
     {
+        itemsList.Clear();
+
         for (int i = 0; i < hits.Length; i++)
         {
-            itemsList.Add(hits[i].collider.gameObject);
+            GameObject hitObject = hits[i].collider.gameObject;
+            // TODO: change for pickup item and movement item more in InteractableObject.cs
+            if (hitObject.GetComponent<InteractableObject>().isInteractable)
+            {
+                itemsList.Add(hits[i].collider.gameObject);
+            }
         }
-    }
-    void ClearListOfItems(List<GameObject> list)
-    {
-        list.Clear();
     }
 
     public void PickUpItem(GameObject item)
@@ -262,7 +271,6 @@ public class Player : MonoBehaviour
             inventoryItem = null;
             inventoryIcon.sprite = null;
             playerState = PlayerStates.move;
-            ClearListOfItems(itemsList);
             itemBar.HideBar();
             return true;
         }

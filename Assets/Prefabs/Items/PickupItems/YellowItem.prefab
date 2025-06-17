@@ -95,7 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: -3774639638778622142, guid: 61f7d11cc8fb6104c9a673f9e4415905, type: 3}
   type: 2
+  isInteractable: 1
+  id: 0
   itemName: Yellow item
+  itemWidth: 0
 --- !u!222 &8963248178292563233
 CanvasRenderer:
   m_ObjectHideFlags: 0

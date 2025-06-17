@@ -1,17 +1,43 @@
 using UnityEngine;
 
-public abstract class ForcedAction : MonoBehaviour
+public class ForcedAction : MonoBehaviour
 {
-    public enum actionType
+    private RoomManager roomManager;
+    public int[] itemIDsToActivate;
+    public GameObject[] objectsToActivate;
+    public Dialog[] dialogsToEnable;
+    public Dialog[] dialogsToDisable;
+
+
+    void Start()
     {
-        CreateTask,
-        CreateDialog,
-        RemoveDialog,
-        Animation,
+        roomManager = GameObject.Find("GameManager").GetComponent<RoomManager>();
     }
+    public void ExecuteAction()
+    {
+        // pickup items 
+        foreach (int itemId in itemIDsToActivate)
+        {
+            PickupItem pickupItem = roomManager.GetItemInstanceById(itemId);
+            pickupItem.gameObject.SetActive(true);
+        }
 
-    private actionType typeOfAction;
+        // task objects etc.  (objects that are not saved and spawned)
+        foreach (GameObject objectToEnable in objectsToActivate)
+        {
+            objectToEnable.SetActive(true);
+        }
 
-    public abstract void ExecuteAction();
+        // dialogs
+        foreach (Dialog dialog in dialogsToDisable)
+        {
+            Destroy(dialog);
+        }
 
+        foreach (Dialog dialog in dialogsToEnable)
+        {   // TODO: only if dialog can be activated (was not destroyed)
+            CharacterItem speakerItem = roomManager.GetCharacterInstanceByType(dialog.speaker);
+            speakerItem.AddDialogToSay(dialog);
+        }
+    }
 }

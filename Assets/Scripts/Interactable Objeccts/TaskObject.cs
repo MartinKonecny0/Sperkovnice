@@ -48,6 +48,7 @@ public class TaskObject : InteractableObject
     private void TaskCompleted()
     {
         isCompleted = true;
+        isInteractable = false;
         if (taskCompletedActions != null)
         {
             taskCompletedActions.ExecuteAction();

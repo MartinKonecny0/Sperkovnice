@@ -122,6 +122,7 @@ public class RoomManager : MonoBehaviour
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         Load();
+        OpenCurrentHider();
     }
     private void PrintAllRooms()
     {
@@ -180,6 +181,13 @@ public class RoomManager : MonoBehaviour
                 allHiders[roomPositionIndex].GetComponentInChildren<Animator>().SetBool("isOpen", true);
             }
         }
+    }
+
+    public void OpenCurrentHider()
+    {
+        GameObject character = player.transform.parent.gameObject;
+        int index = character.transform.parent.GetComponent<Room>().roomPositionIndex;
+        OpenHider(index);
     }
 
     public void CloseHider(int roomPositionIndex)
@@ -250,9 +258,8 @@ public class RoomManager : MonoBehaviour
                 player.inventoryIcon = inventoryIcon;
                 player.roomManager = this;
                 player.ChangePlayerToCharacter(null, spawnedObject);
-
                 CloseAllHiders();
-                OpenHider(spawnedObject.transform.parent.GetComponent<Room>().roomPositionIndex);
+                presentRoom = spawnedObject.transform.parent.gameObject;
             }
             allCharacterItems.Add(spawnedObject.GetComponent<CharacterItem>());
             i++;

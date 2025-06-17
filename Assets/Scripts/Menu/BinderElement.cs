@@ -23,7 +23,8 @@ public class BinderElement : MenuElement
         {
             if (currentAction is ButtonControl button)
             {
-                string bindingString = $"<{currentAction.device.name}>/" + currentAction.name;
+                string device = currentAction.device.name;
+                string bindingString = $"<{device}>/" + currentAction.name;
                 BindingManager.ChangeBinding(currentBinderType, bindingString, false);
                 menuManager.SaveSettings();
                 menuManager.skipNextButtonUp = true;

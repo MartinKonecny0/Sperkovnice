@@ -113,12 +113,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 8309615740058018018, guid: f7b2f6b81676f264296f0e88666fc5e8, type: 3}
   type: 0
+  isInteractable: 1
   characterType: 0
-  allDialogs:
-  - Hello I am engineer
-  - Second dialog text
+  dialogsToSay: []
   isDialogEnabled: 1
-  currDialogIndex: 0
   isWalkingToDefault: 0
   defaultPosition: {fileID: 0}
   walkSpeed: 2
