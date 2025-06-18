@@ -32,27 +32,27 @@ public class RoomManager : MonoBehaviour
     {
         // Engineer's world
         {
-            0, 0, 0,
+            0, 0, 2,
             0,    0,
             0, 0, 0,
         },
         // Hedwig's world
         {
-            0, 0, 0,
-            0,    0,
-            0, 0, 1,
+            1, 1, 0,
+            1,    1,
+            0, 1, 0,
         },
         // Priest's world
         {
-            0, 2, 2,
-            0,    2,
-            2, 2, 2,
+            1, 2, 1,
+            2,    1,
+            1, 2, 1,
         },
         // Shaman's world
         {
-            3, 3, 3,
-            3,    3,
-            3, 3, 2,
+            2, 3, 2,
+            3,    2,
+            2, 3, 1,
         },
         // Aunt's world
         {
@@ -66,20 +66,20 @@ public class RoomManager : MonoBehaviour
     {
         // Engineer's hiders
         {
-            0, 0, 0,
+            0, 0, 3,
             0,    0,
             0, 0, 0,
         },
         // Hedwig's hiders
         {
-            2, 1, 1,
-            1,    1,
             1, 1, 1,
+            1,    1,
+            1, 1, 0,
         },
         // Priest's hiders
         {
             2, 2, 2,
-            2,    2,
+            2,    1,
             2, 2, 2,
         },
         // Shaman's hiders
@@ -233,6 +233,7 @@ public class RoomManager : MonoBehaviour
         if (loadedSceneData == null)
         {
             Debug.Log("Load file does not exist -> empty load");
+            ChangeWorld(CharacterType.Hedwig);
             return;
         }
 
