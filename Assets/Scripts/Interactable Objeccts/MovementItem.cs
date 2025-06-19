@@ -7,13 +7,23 @@ public class MovementItem : InteractableObject
     public Transform teleportPosition;
     public int destinationRoomIndex;
     public CharacterType[] charactersAbleToOpen; // whitelist of characters that are able to use this item
-
+    public PickupItem.PickupItemType[] blockingItems;
     void Start()
     {
         type = InteractableType.movement;
     }
     public override void Interact(GameObject character, Player playerScript)
     {
+        if (playerScript.inventoryItem != null)
+        {
+            PickupItem.PickupItemType playerItem = playerScript.inventoryItem.GetComponent<PickupItem>().itemType;
+            if (blockingItems.Contains(playerItem))
+            {
+                Debug.Log("Character holds blocking item");
+                return;
+            }
+        }
+
         if (charactersAbleToOpen.Length == 0 || charactersAbleToOpen.Contains(playerScript.currentCharacter))
         {
             TeleportCharacter(character);

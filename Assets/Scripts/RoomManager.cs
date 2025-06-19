@@ -27,6 +27,7 @@ public class RoomManager : MonoBehaviour
     public GameObject[] allCharactersPrefabs;
     public List<CharacterItem> allCharacterItems;
     public List<TaskObject> allTaskItems;
+    public List<ItemWithRequirement> AllItemsWithRequirements;
 
     public int[,] worldsMap =
     {
@@ -270,7 +271,7 @@ public class RoomManager : MonoBehaviour
         i = 0;
         foreach (pickupItemSave item in loadedSceneData.allPickupItems)
         {
-            GameObject gameObjectToSpawn = GetItemPrefabByName(item.name);
+            GameObject gameObjectToSpawn = GetItemPrefabByType(item.itemType);
             GameObject spawnedObject = Instantiate(gameObjectToSpawn);
             spawnedObject.GetComponent<PickupItem>().id = item.id;
             spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
@@ -288,10 +289,10 @@ public class RoomManager : MonoBehaviour
             TaskObject taskItem = GetTaskInstanceById(task.id);
             taskItem.id = task.id;
             taskItem.isCompleted = task.isCompleted;
-            taskItem.requiredItemsNames.Clear();
-            foreach (string requiredString in task.remainingRequiredItems)
+            taskItem.requiredItems.Clear();
+            foreach (PickupItem.PickupItemType requiredItem in task.remainingRequiredItems)
             {
-                taskItem.requiredItemsNames.Add(requiredString);
+                taskItem.requiredItems.Add(requiredItem);
             }
         }
     }
@@ -319,11 +320,11 @@ public class RoomManager : MonoBehaviour
         inventoryIcon.sprite = null;
     }
 
-    public GameObject GetItemPrefabByName(string name)
+    public GameObject GetItemPrefabByType(PickupItem.PickupItemType type)
     {
         foreach (GameObject item in allItemsPrefabs)
         {
-            if (item.GetComponent<PickupItem>().itemName == name)
+            if (item.GetComponent<PickupItem>().itemType == type)
             {
                 return item;
             }
@@ -399,5 +400,19 @@ public class RoomManager : MonoBehaviour
 
         Debug.LogError("Trying to get room with invalid name. Name of room: " + name);
         return null;
+    }
+
+    public void UpdateNecessaryItems(PickupItem.PickupItemType itemType)
+    {
+        foreach (var item in AllItemsWithRequirements)
+        {
+            if (item != null)
+            {
+                if (item.necessaryItem == itemType)
+                {
+                    item.NecessaryItemDiscovered();
+                }
+            }
+        }
     }
 }

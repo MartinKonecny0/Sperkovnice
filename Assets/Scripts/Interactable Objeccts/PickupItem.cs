@@ -1,15 +1,37 @@
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PickupItem : InteractableObject
 {
-    public int id;
-    public string itemName;
+    public enum PickupItemType
+    {
+        Necklace,
+        Rope,
+        Coal,
+        Bones,
+        Shovel,
+        Candelabra,
+        Tomato,
+        Chilli,
+        Weed,
+        Scissors,
+        Berries,
+        Handle,
+        Axe,
+        Weapon
+    }
+
+    public int id; // different for each instance
+    public PickupItemType itemType;
+
     public float itemWidth;
     void Start()
     {
         type = InteractableType.pickup;
         itemWidth = GetItemWidth();
     }
+
+
     public override void Interact(GameObject character, Player playerScript)
     {
         playerScript.PickUpItem(gameObject);

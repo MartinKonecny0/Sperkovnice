@@ -214,8 +214,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             GameObject hitObject = hits[i].collider.gameObject;
-            // TODO: change for pickup item and movement item more in InteractableObject.cs
-            if (hitObject.GetComponent<InteractableObject>().isInteractable)
+            if (hitObject.GetComponent<InteractableObject>().IsInteractable())
             {
                 itemsList.Add(hits[i].collider.gameObject);
             }
@@ -226,7 +225,6 @@ public class Player : MonoBehaviour
     {
         if (inventoryItem == null)
         {
-
             inventoryItem = item;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
         }
@@ -236,6 +234,7 @@ public class Player : MonoBehaviour
             inventoryItem = item;
             inventoryIcon.sprite = item.GetComponent<InteractableObject>().icon;
         }
+        roomManager.UpdateNecessaryItems(item.GetComponent<PickupItem>().itemType);
         // item is still present in the scene
         item.SetActive(false);
     }
@@ -243,7 +242,7 @@ public class Player : MonoBehaviour
     /// dropping item from inventory and setting their parent room
     /// </summary>
     /// <returns>
-    ///     true - sucessfully dropped item
+    ///     true - successfully dropped item
     ///     false - there was no item in inventory
     /// </returns>
     public bool DropItem()
@@ -283,9 +282,9 @@ public class Player : MonoBehaviour
     public void GetWallsDistances()
     {
         LayerMask layer = LayerMask.GetMask("Walls");
-        var rightHit = Physics2D.Raycast(player.transform.position + new Vector3(0, 0.1f, 0), transform.right, interactionWidth, layer);
+        var rightHit = Physics2D.Raycast(player.transform.position + new Vector3(0, 0.5f, 0), transform.right, interactionWidth, layer);
         rightWallDistance = rightHit.distance;
-        var leftHit = Physics2D.Raycast(player.transform.position + new Vector3(0, 0.1f, 0), -transform.right, interactionWidth, layer);
+        var leftHit = Physics2D.Raycast(player.transform.position + new Vector3(0, 0.5f, 0), -transform.right, interactionWidth, layer);
         leftWallDistance = leftHit.distance;
     }
 

@@ -33,7 +33,7 @@ public class SceneData
         public float[] position;
         public int id;
         public bool isInteractable;
-        public string name;
+        public PickupItem.PickupItemType itemType;
         public string roomName;
     }
     [System.Serializable]
@@ -42,7 +42,7 @@ public class SceneData
         public int id;
         public bool isInteractable;
         public bool isCompleted;
-        public string[] remainingRequiredItems;
+        public PickupItem.PickupItemType[] remainingRequiredItems;
     }
 
     public metaSave metaData; 
@@ -77,7 +77,7 @@ public class SceneData
                 newItem.position[0] = item.transform.position.x;
                 newItem.position[1] = item.transform.position.y;
                 newItem.id = item.id;
-                newItem.name = item.itemName;
+                newItem.itemType = item.itemType;
                 newItem.roomName = item.transform.parent.name;
                 allPickupItems.Add(newItem);
             }
@@ -105,10 +105,10 @@ public class SceneData
                 newTask.id = task.id;
                 newTask.isInteractable = task.isInteractable;
                 newTask.isCompleted = task.isCompleted;
-                newTask.remainingRequiredItems = new string[task.requiredItemsNames.Count];
+                newTask.remainingRequiredItems = new PickupItem.PickupItemType[task.requiredItems.Count];
                 for (int i = 0; i < newTask.remainingRequiredItems.Length; i++)
                 {
-                    newTask.remainingRequiredItems[i] = task.requiredItemsNames[i];
+                    newTask.remainingRequiredItems[i] = task.requiredItems[i];
                 }
                 allTaskItems.Add(newTask);
             }

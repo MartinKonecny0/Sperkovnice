@@ -8,16 +8,17 @@ public abstract class InteractableObject : MonoBehaviour
         pickup,
         task,
         puzzle,
+        itemWithRequirement
     }
     public Sprite icon;
     public InteractableType type;
     public bool isInteractable;
 
     public abstract void Interact(GameObject character, Player playerScript);
-     // idea public virtual bool IsInteractable()
-     // {
-     // return isInteractable; // override in movementItem and pickupItem
-     // }
-     //
-     //
+    public virtual bool IsInteractable()
+    {
+        return isInteractable; // override in pickupItem
+    }
+
+
 }

@@ -48,7 +48,7 @@ MonoBehaviour:
   roomManager: {fileID: 0}
   lastHorizontal: 0
   horizontal: 0
-  speed: 4
+  speed: 12
   player: {fileID: 0}
   playerState: 0
   currentCharacter: 1
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconPrefab: {fileID: 9097231229855151, guid: d5ff42ed0801db74795546f8a876eccc, type: 3}
-  ellipseHeight: 0
+  ellipseHeight: 0.25
   rotationSpeed: 5
   incrementPerItem: 0.3
   futureAngle: 0

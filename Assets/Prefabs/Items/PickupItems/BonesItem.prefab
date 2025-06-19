@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1490233671836154334}
   - component: {fileID: 8963248178292563233}
   m_Layer: 6
-  m_Name: BlueItem
+  m_Name: BonesItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,9 @@ MonoBehaviour:
   type: 2
   isInteractable: 1
   id: 0
-  itemName: Blue item
+  itemType: 4
+  necessaryItem: 5
+  necessaryItemDiscovered: 0
   itemWidth: 0
 --- !u!222 &8963248178292563233
 CanvasRenderer:
@@ -184,7 +186,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
-  m_Color: {r: 0.035294127, g: 0.17381348, b: 0.7058824, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

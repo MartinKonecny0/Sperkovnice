@@ -1,19 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static PickupItem;
 
 public class TaskObject : InteractableObject
 {
     public int id;
     public bool isCompleted = false;
     public ForcedAction taskCompletedActions;
-    public List<string> requiredItemsNames;
-    private string playerItemName;
+    public List<PickupItem.PickupItemType> requiredItems;
+    private PickupItem.PickupItemType playerItem;
 
     void Start()
     {
         taskCompletedActions = GetComponent<ForcedAction>();
         type = InteractableType.task;
     }
+
     public override void Interact(GameObject character, Player playerScript)
     {
         CheckPlayerItem(playerScript);
@@ -26,25 +28,28 @@ public class TaskObject : InteractableObject
             return;
         }
 
-        playerItemName = playerScript.inventoryItem.GetComponent<PickupItem>().itemName;
+        playerItem = playerScript.inventoryItem.GetComponent<PickupItem>().itemType;
         
         // item is required
-        if (requiredItemsNames.Contains(playerItemName))
+        if (requiredItems.Contains(playerItem))
         {
             Debug.Log("Player is holding object for this task");
-            requiredItemsNames.Remove(playerItemName);
+            requiredItems.Remove(playerItem);
             playerScript.inventoryIcon.sprite = null;
             Destroy(playerScript.inventoryItem);
-            if (requiredItemsNames.Count == 0)
+            
+            if (requiredItems.Count == 0)
             {
                 TaskCompleted();
             }
+           
         }
         else
         {
             Debug.Log("Player is NOT holding object for this task");
         }
     }
+
     private void TaskCompleted()
     {
         isCompleted = true;
