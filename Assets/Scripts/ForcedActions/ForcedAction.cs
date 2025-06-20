@@ -40,4 +40,31 @@ public class ForcedAction : MonoBehaviour
             speakerItem.AddDialogToSay(dialog);
         }
     }
+    public void RevertAction()
+    {
+        // pickup items 
+        foreach (int itemId in itemIDsToActivate)
+        {
+            PickupItem pickupItem = roomManager.GetItemInstanceById(itemId);
+            pickupItem.gameObject.SetActive(false);
+        }
+
+        // task objects etc.  (objects that are not saved and spawned)
+        foreach (GameObject objectToEnable in objectsToActivate)
+        {
+            objectToEnable.SetActive(false);
+        }
+
+        // dialogs
+        //foreach (Dialog dialog in dialogsToDisable)
+        //{
+        //    Destroy(dialog);
+        //}
+
+        //foreach (Dialog dialog in dialogsToEnable)
+        //{   // TODO: only if dialog can be activated (was not destroyed)
+        //    CharacterItem speakerItem = roomManager.GetCharacterInstanceByType(dialog.speaker);
+        //    speakerItem.AddDialogToSay(dialog);
+        //}
+    }
 }
