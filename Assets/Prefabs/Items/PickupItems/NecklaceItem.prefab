@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1490233671836154334}
   - component: {fileID: 8963248178292563233}
   m_Layer: 6
-  m_Name: ShovelItem
+  m_Name: NecklaceItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   type: 2
   isInteractable: 1
   id: 0
-  itemType: 4
+  itemType: 0
   itemWidth: 0
 --- !u!222 &8963248178292563233
 CanvasRenderer:
@@ -184,7 +184,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
-  m_Color: {r: 0.82641506, g: 0.82641506, b: 0.82641506, a: 1}
+  m_Color: {r: 0.0044738124, g: 0.4339623, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

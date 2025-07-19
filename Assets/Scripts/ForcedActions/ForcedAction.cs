@@ -3,23 +3,24 @@ using UnityEngine;
 public class ForcedAction : MonoBehaviour
 {
     private RoomManager roomManager;
-    public int[] itemIDsToActivate;
+    public PickupItem.PickupItemType[] pickupInstancesToSpawn;
     public GameObject[] objectsToActivate;
     public Dialog[] dialogsToEnable;
     public Dialog[] dialogsToDisable;
-
-
+    public Transform spawningPosition;
     void Start()
     {
         roomManager = GameObject.Find("GameManager").GetComponent<RoomManager>();
     }
     public void ExecuteAction()
     {
-        // pickup items 
-        foreach (int itemId in itemIDsToActivate)
+        // spawn pickup items - always spawns with id 0
+        // not suitable for spawning multiple items with same type (for example 2 and more tomatoes)
+        foreach (PickupItem.PickupItemType itemId in pickupInstancesToSpawn)
         {
-            PickupItem pickupItem = roomManager.GetItemInstanceById(itemId);
-            pickupItem.gameObject.SetActive(true);
+            GameObject spawnedItem = roomManager.GetItemPrefabByType(itemId);
+            Instantiate(spawnedItem, spawningPosition.position, spawningPosition.rotation, spawningPosition.parent);
+            roomManager.allItems.Add(spawnedItem.GetComponent<PickupItem>());
         }
 
         // task objects etc.  (objects that are not saved and spawned)
@@ -42,11 +43,12 @@ public class ForcedAction : MonoBehaviour
     }
     public void RevertAction()
     {
-        // pickup items 
-        foreach (int itemId in itemIDsToActivate)
+        // destroying pickup items 
+        // not suitable for destroying items that exists in multiple instances (for example 2 and more tomatoes)
+        foreach (PickupItem.PickupItemType itemId in pickupInstancesToSpawn)
         {
-            PickupItem pickupItem = roomManager.GetItemInstanceById(itemId);
-            pickupItem.gameObject.SetActive(false);
+            PickupItem pickupItem = roomManager.GetItemInstanceById(itemId, 0);
+            Destroy(pickupItem);
         }
 
         // task objects etc.  (objects that are not saved and spawned)

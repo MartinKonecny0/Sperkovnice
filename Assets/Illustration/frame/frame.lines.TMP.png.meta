@@ -1259,7 +1259,53 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      frame.lines.TMP_0: 1967682441190692923
+      frame.lines.TMP_1: -5487689491397499446
+      frame.lines.TMP_10: 4402187932322734689
+      frame.lines.TMP_11: 6213806885977937985
+      frame.lines.TMP_12: -990479319073349554
+      frame.lines.TMP_13: -9025824883225619964
+      frame.lines.TMP_14: -4733915822186777063
+      frame.lines.TMP_15: 7485651206716573772
+      frame.lines.TMP_16: 711326995348660151
+      frame.lines.TMP_17: 542099838018827942
+      frame.lines.TMP_18: 1624034294599608654
+      frame.lines.TMP_19: -6286592822858199845
+      frame.lines.TMP_2: -1220723529533966345
+      frame.lines.TMP_20: 5384339018364682424
+      frame.lines.TMP_21: -773896676237342816
+      frame.lines.TMP_22: -8559291665202050352
+      frame.lines.TMP_23: -1232969853778319127
+      frame.lines.TMP_24: -296208324888861310
+      frame.lines.TMP_25: -7611993930513195924
+      frame.lines.TMP_26: 1649225807851765186
+      frame.lines.TMP_27: 8066543532247528759
+      frame.lines.TMP_28: -6894184791841461380
+      frame.lines.TMP_29: -5872299054712752598
+      frame.lines.TMP_3: 6387004370849031617
+      frame.lines.TMP_30: 7228253410696331756
+      frame.lines.TMP_31: -1322026759154231323
+      frame.lines.TMP_32: -5506506732940480300
+      frame.lines.TMP_33: 2281366420503444994
+      frame.lines.TMP_34: 2513856019014594418
+      frame.lines.TMP_35: -3249206585776869363
+      frame.lines.TMP_36: -6398007265307378403
+      frame.lines.TMP_37: -2382237370278517411
+      frame.lines.TMP_38: 7660148486946730799
+      frame.lines.TMP_39: -4668708424327814252
+      frame.lines.TMP_4: -360663084147910019
+      frame.lines.TMP_40: -7746169499103681108
+      frame.lines.TMP_41: 2007039710382071580
+      frame.lines.TMP_42: -2337383180741464281
+      frame.lines.TMP_43: 7923734046654436589
+      frame.lines.TMP_44: 117421092009482861
+      frame.lines.TMP_45: 6802981947550869781
+      frame.lines.TMP_5: 7986306212389421518
+      frame.lines.TMP_6: -5803121701094830256
+      frame.lines.TMP_7: 8671695530999801239
+      frame.lines.TMP_8: -8692800752481414842
+      frame.lines.TMP_9: -5580323672943705485
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

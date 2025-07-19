@@ -27,7 +27,7 @@ public class RoomManager : MonoBehaviour
     public GameObject[] allCharactersPrefabs;
     public List<CharacterItem> allCharacterItems;
     public List<TaskObject> allTaskItems;
-    public List<ItemWithRequirement> AllItemsWithRequirements;
+    public List<ItemWithRequirement> allItemsWithRequirements;
 
     public int[,] worldsMap =
     {
@@ -226,6 +226,7 @@ public class RoomManager : MonoBehaviour
         SaveManager.allItems = allItems;
         SaveManager.allCharacterItems = allCharacterItems;
         SaveManager.allTaskItems = allTaskItems;
+        SaveManager.allItemsWithRequirements = allItemsWithRequirements;
     }
 
     public void Load()
@@ -269,15 +270,21 @@ public class RoomManager : MonoBehaviour
 
         // setting up pickup items
         i = 0;
+
+        PickupItem.PickupItemType playerItemType = loadedSceneData.playerData.playerCurrentItemType;
+        int playerItemId = loadedSceneData.playerData.playerCurrentItemId;
+
         foreach (pickupItemSave item in loadedSceneData.allPickupItems)
         {
             GameObject gameObjectToSpawn = GetItemPrefabByType(item.itemType);
             GameObject spawnedObject = Instantiate(gameObjectToSpawn);
+            spawnedObject.SetActive(item.isActive);
             spawnedObject.GetComponent<PickupItem>().id = item.id;
             spawnedObject.transform.parent = GetRoomByName(item.roomName).transform;
             spawnedObject.transform.position = new Vector2(item.position[0], item.position[1]);
             allItems.Add(spawnedObject.GetComponent<PickupItem>());
-            if (spawnedObject.GetComponent<PickupItem>().id == loadedSceneData.playerData.playerCurrentItemId)
+            if (spawnedObject.GetComponent<PickupItem>().itemType == playerItemType 
+                && spawnedObject.GetComponent<PickupItem>().id == playerItemId)
             {
                 player.PickUpItem(spawnedObject);
             }
@@ -286,14 +293,22 @@ public class RoomManager : MonoBehaviour
 
         foreach (taskItemSave task in loadedSceneData.allTaskItems)
         {
-            TaskObject taskItem = GetTaskInstanceById(task.id);
-            taskItem.id = task.id;
+            TaskObject taskItem = GetTaskInstanceByType(task.itemType);
+            taskItem.gameObject.SetActive(task.isActive);
             taskItem.isCompleted = task.isCompleted;
-            taskItem.requiredItems.Clear();
+            taskItem.itemsLeft.Clear();
             foreach (PickupItem.PickupItemType requiredItem in task.remainingRequiredItems)
             {
-                taskItem.requiredItems.Add(requiredItem);
+                taskItem.itemsLeft.Add(requiredItem);
             }
+        }
+
+        foreach (itemWithRequirement item in loadedSceneData.allItemsWithRequirement)
+        {
+            ItemWithRequirement itemWithRequirement = GetItemWithRequirementByType(item.itemType);
+            itemWithRequirement.gameObject.SetActive(item.isActive);
+            itemWithRequirement.isCompleted = item.isCompleted;
+            itemWithRequirement.isNecessaryDiscovered = item.isNecessaryDiscovered;
         }
     }
 
@@ -330,20 +345,20 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Debug.LogError("Trying to get item with missing prefab. Name of item: " + name);
+        Debug.LogError("Trying to get item with missing prefab. Type of item: " + type);
         return null;
     }
-    public PickupItem GetItemInstanceById(int idToFind)
+    public PickupItem GetItemInstanceById(PickupItem.PickupItemType typeOfItem, int idToFind)
     {
         foreach (PickupItem item in allItems)
         {
-            if (item.id == idToFind)
+            if (item.itemType == typeOfItem && item.id == idToFind)
             {
                 return item;
             }
         }
 
-        Debug.LogError("Trying to get item missing instance. Id of item: " + idToFind);
+        Debug.LogError("Trying to get item missing instance. Type of item: " + typeOfItem + " ID of item instance: " + idToFind);
         return null;
     }
     public CharacterItem GetCharacterInstanceByType(CharacterType type)
@@ -372,17 +387,28 @@ public class RoomManager : MonoBehaviour
         Debug.LogError("Trying to get character with missing prefab. Type of character: " + type);
         return null;
     }
-    public TaskObject GetTaskInstanceById(int taskId)
+    public TaskObject GetTaskInstanceByType(TaskObject.TaskObjectType taskType)
     {
         foreach (TaskObject task in allTaskItems)
         {
-            if (task.id == taskId)
+            if (task.itemType == taskType)
             {
                 return task;
             }
         }
-
-        Debug.LogError("Trying to get task missing instance. Id of task: " + taskId);
+        Debug.LogError("Trying to get task missing type. Type of task: " + taskType);
+        return null;
+    }
+    public ItemWithRequirement GetItemWithRequirementByType(ItemWithRequirement.ItemWithRequirementType taskType)
+    {
+        foreach (ItemWithRequirement item in allItemsWithRequirements)
+        {
+            if (item.itemType == taskType)
+            {
+                return item;
+            }
+        }
+        Debug.LogError("Trying to get task missing type. Type of task: " + taskType);
         return null;
     }
     public GameObject GetRoomByName(string name)
@@ -404,7 +430,7 @@ public class RoomManager : MonoBehaviour
 
     public void UpdateNecessaryItems(PickupItem.PickupItemType itemType)
     {
-        foreach (var item in AllItemsWithRequirements)
+        foreach (var item in allItemsWithRequirements)
         {
             if (item != null)
             {

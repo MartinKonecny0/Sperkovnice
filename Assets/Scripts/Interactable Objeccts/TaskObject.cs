@@ -1,20 +1,34 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using static PickupItem;
 using static UnityEngine.UI.Image;
 
 public class TaskObject : InteractableObject
 {
-    public int id;
+    public enum TaskObjectType
+    {
+        Pulley_Rope,
+        Pulley_Coal,
+        Ignite,
+        Brew,
+        Weapon
+    }
+
+    private RoomManager roomManager;
+    public TaskObjectType itemType;
     public bool isCompleted = false;
     public ForcedAction taskCompletedActions;
     public List<PickupItem.PickupItemType> requiredItems;
-    private List<PickupItem.PickupItemType> itemsLeft;
+    public List<PickupItem.PickupItemType> itemsLeft;
     private PickupItem.PickupItemType playerItem;
     public bool isRevertable;
+    public bool needItemForRevert;
+    public PickupItemType revertItem;
     void Start()
     {
+        roomManager = GameObject.Find("GameManager").GetComponent<RoomManager>();
         taskCompletedActions = GetComponent<ForcedAction>();
         type = InteractableType.task;
         itemsLeft = new List<PickupItemType>(requiredItems);
@@ -22,10 +36,25 @@ public class TaskObject : InteractableObject
 
     public override void Interact(GameObject character, Player playerScript)
     {
+        if (playerScript.inventoryItem != null)
+        {
+            playerItem = playerScript.inventoryItem.GetComponent<PickupItem>().itemType;
+        }
+        else
+        {
+            //playerItem = null;
+        }
         // player can reuse items in some tasks (for example rope in pulley task)
         if (isRevertable && isCompleted)
         {
-            RevertTask();
+            if (!needItemForRevert || playerItem == revertItem)
+            {
+                RevertTask(playerScript);
+            }
+            else
+            {
+                Debug.Log("Holding wrong item for revert");
+            }
         }
         CheckPlayerItem(playerScript);
     }
@@ -36,18 +65,11 @@ public class TaskObject : InteractableObject
             Debug.Log("Player is holding nothing");
             return;
         }
-
-        playerItem = playerScript.inventoryItem.GetComponent<PickupItem>().itemType;
-        
         // item is required
         if (itemsLeft.Contains(playerItem))
         {
             Debug.Log("Player is holding object for this task");
-            itemsLeft.Remove(playerItem);
-            playerScript.inventoryIcon.sprite = null;
-            
-            Destroy(playerScript.inventoryItem);
-           
+            DestroyPlayerItem(playerScript);
             if (itemsLeft.Count == 0)
             {
                 TaskCompleted();
@@ -73,17 +95,30 @@ public class TaskObject : InteractableObject
         
     }
 
-    private void RevertTask()
+    private void RevertTask(Player playerScript)
     {
+        DestroyPlayerItem(playerScript);
+
         isCompleted = false;
         itemsLeft = new List<PickupItemType>(requiredItems);
         taskCompletedActions.RevertAction();
 
-        RoomManager roomManager = GameObject.Find("GameManager").GetComponent<RoomManager>();
         foreach (PickupItemType itemToRevert in requiredItems)
         {
             GameObject newItem = roomManager.GetItemPrefabByType(itemToRevert);
-            Instantiate(newItem, transform.position, transform.rotation, transform.parent);
+            GameObject spawnedItem = Instantiate(newItem, transform.position, transform.rotation, transform.parent);
+            roomManager.allItems.Add(spawnedItem.GetComponent<PickupItem>());
+        }
+    }
+
+    private void DestroyPlayerItem(Player playerScript)
+    {
+        if (playerScript.inventoryItem != null)
+        {
+            itemsLeft.Remove(playerItem);
+            playerScript.inventoryIcon.sprite = null;
+            roomManager.allItems.Remove(playerScript.inventoryItem.GetComponent<PickupItem>());
+            Destroy(playerScript.inventoryItem);
         }
     }
 }

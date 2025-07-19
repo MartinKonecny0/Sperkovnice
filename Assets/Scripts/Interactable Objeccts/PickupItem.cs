@@ -17,7 +17,7 @@ public class PickupItem : InteractableObject
         Scissors,
         Berries,
         Handle,
-        Axe,
+        Saw,
         Weapon
     }
 

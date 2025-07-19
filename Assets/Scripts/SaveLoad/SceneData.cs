@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class SceneData
@@ -14,6 +15,7 @@ public class SceneData
     public struct playerSave
     {
         public CharacterType character;
+        public PickupItem.PickupItemType playerCurrentItemType;
         public int playerCurrentItemId;
     }
     [System.Serializable]
@@ -31,18 +33,29 @@ public class SceneData
     public struct pickupItemSave
     {
         public float[] position;
-        public int id;
-        public bool isInteractable;
+        public bool isActive;
         public PickupItem.PickupItemType itemType;
+        public int id; // different for each instance
+        public bool isInteractable;
         public string roomName;
     }
     [System.Serializable]
     public struct taskItemSave
     {
-        public int id;
+        public TaskObject.TaskObjectType itemType;
+        public bool isActive;
         public bool isInteractable;
         public bool isCompleted;
         public PickupItem.PickupItemType[] remainingRequiredItems;
+    }
+    [System.Serializable]
+    public struct itemWithRequirement
+    {
+        public ItemWithRequirement.ItemWithRequirementType itemType;
+        public bool isActive;
+        public bool isInteractable;
+        public bool isCompleted;
+        public bool isNecessaryDiscovered;
     }
 
     public metaSave metaData; 
@@ -50,9 +63,9 @@ public class SceneData
     public List<pickupItemSave> allPickupItems = new List<pickupItemSave>();
     public List<characterSave> allCharacters = new List<characterSave>();
     public List<taskItemSave> allTaskItems = new List<taskItemSave>();
+    public List<itemWithRequirement> allItemsWithRequirement = new List<itemWithRequirement>();
 
-
-    public SceneData(Player player, List<PickupItem> items, List<CharacterItem> characters, List<TaskObject> tasks)
+    public SceneData(Player player, List<PickupItem> items, List<CharacterItem> characters, List<TaskObject> tasks, List<ItemWithRequirement> itemsWithReq)
     {
         metaData = new metaSave();
         metaData.saveDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -61,10 +74,11 @@ public class SceneData
         if (player.inventoryItem != null)
         {
             playerData.playerCurrentItemId = player.inventoryItem.GetComponent<PickupItem>().id;
+            playerData.playerCurrentItemType = player.inventoryItem.GetComponent<PickupItem>().itemType;
         }
         else
         {
-            playerData.playerCurrentItemId = 0;
+            playerData.playerCurrentItemId = -1;
         }
 
         //set all pickup items in scene
@@ -73,10 +87,12 @@ public class SceneData
             if (item != null)
             {
                 pickupItemSave newItem = new pickupItemSave();
+                newItem.isActive = item.gameObject.activeSelf;
                 newItem.position = new float[2];
                 newItem.position[0] = item.transform.position.x;
                 newItem.position[1] = item.transform.position.y;
                 newItem.id = item.id;
+                newItem.isInteractable = item.isInteractable;
                 newItem.itemType = item.itemType;
                 newItem.roomName = item.transform.parent.name;
                 allPickupItems.Add(newItem);
@@ -102,15 +118,30 @@ public class SceneData
             if (task != null)
             {
                 taskItemSave newTask = new taskItemSave();
-                newTask.id = task.id;
+                newTask.isActive = task.gameObject.activeSelf;
+                newTask.itemType = task.itemType;
                 newTask.isInteractable = task.isInteractable;
                 newTask.isCompleted = task.isCompleted;
-                newTask.remainingRequiredItems = new PickupItem.PickupItemType[task.requiredItems.Count];
+                newTask.remainingRequiredItems = new PickupItem.PickupItemType[task.itemsLeft.Count];
                 for (int i = 0; i < newTask.remainingRequiredItems.Length; i++)
                 {
-                    newTask.remainingRequiredItems[i] = task.requiredItems[i];
+                    newTask.remainingRequiredItems[i] = task.itemsLeft[i];
                 }
                 allTaskItems.Add(newTask);
+            }
+        }
+
+        foreach (var item in itemsWithReq)
+        {
+            if (item != null)
+            {
+                itemWithRequirement newItem = new itemWithRequirement();
+                newItem.isActive = item.gameObject.activeSelf;
+                newItem.itemType = item.itemType;
+                newItem.isInteractable = item.isInteractable;
+                newItem.isCompleted = item.isCompleted;
+                newItem.isNecessaryDiscovered = item.isNecessaryDiscovered;
+                allItemsWithRequirement.Add(newItem);
             }
         }
     }

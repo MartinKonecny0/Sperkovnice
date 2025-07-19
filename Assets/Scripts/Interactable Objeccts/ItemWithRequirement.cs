@@ -1,9 +1,16 @@
 using UnityEngine;
 using static PickupItem;
+using static TaskObject;
 
 public class ItemWithRequirement : InteractableObject
 {
-    public int id;
+    public enum ItemWithRequirementType
+    {
+        Crypt,
+        WeedPlant,
+        Branch
+    }
+    public ItemWithRequirementType itemType;
     public bool isCompleted = false;
     public ForcedAction taskCompletedActions;
     public PickupItemType necessaryItem;
