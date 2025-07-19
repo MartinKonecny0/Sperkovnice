@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 30dd3ceb23420284f83656cc021ea869
+guid: b9542500150799346a2905458f9f5e7d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7326897992440643293
-    second: itemWithRequirementIcon_0
+      213: 38430846305576794
+    second: priest.character.idle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: itemWithRequirementIcon_0
+      name: priest.character.idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 100
-        height: 100
+        x: 1
+        y: 3
+        width: 127
+        height: 311
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3218d0f6811a15a90800000000000000
-      internalID: -7326897992440643293
+      spriteID: a57267ea6a8888000800000000000000
+      internalID: 38430846305576794
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      itemWithRequirementIcon_0: -7326897992440643293
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

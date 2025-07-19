@@ -68,5 +68,8 @@ TagManager:
   - name: BarIcons
     uniqueID: 1486840571
     locked: 0
+  - name: frame_boxes_TMP
+    uniqueID: 28798457
+    locked: 0
   m_RenderingLayers:
   - Default
