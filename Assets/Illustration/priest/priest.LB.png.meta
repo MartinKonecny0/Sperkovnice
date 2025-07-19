@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d936bf793115d584c8bc736d679d9475
+guid: 287eb2ee22836f54a980dfde9194edf4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3508945201886947679
-    second: TaskIcon_0
+      213: 3031828483294742067
+    second: priest.LB_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TaskIcon_0
+      name: priest.LB_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 1068
+        height: 577
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a697391ee8bd4fc0800000000000000
-      internalID: -3508945201886947679
+      spriteID: 336c1b631f7331a20800000000000000
+      internalID: 3031828483294742067
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      TaskIcon_0: -3508945201886947679
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

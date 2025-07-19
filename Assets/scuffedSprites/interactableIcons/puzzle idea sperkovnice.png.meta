@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      puzzle idea sperkovnice_0: 2255876639715207987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
